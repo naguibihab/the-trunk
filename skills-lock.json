@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "viral-tiktok-content": {
+      "source": "vyralcontent/content-skills",
+      "sourceType": "github",
+      "skillPath": "skills/viral-tiktok-content/SKILL.md",
+      "computedHash": "9d9b92eca9940e569bc9301b9aa54333c8e2e645020b159ba6ac46972f83bb35"
+    }
+  }
+}

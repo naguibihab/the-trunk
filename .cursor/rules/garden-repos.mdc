@@ -1,0 +1,24 @@
+---
+description: Fruit lives in sibling git repos, not inside the trunk
+alwaysApply: true
+---
+
+# Garden repos
+
+The Trunk (`the-trunk`) holds **skills, rules, `apps.json`, and the dashboard**. App source and ideas do **not** live here.
+
+| Kind | On disk (from trunk) | GitHub (private) |
+|------|----------------------|------------------|
+| Sprouts | `../the-sprouts/<slug>/` | `naguibihab/the-sprouts` |
+| Limb | `../limb-<slug>/` | `naguibihab/limb-<slug>` |
+| Sapling | `../the-saplings/<site>/` | saplings repo |
+
+`apps.json`:
+
+- Sprout **`description`**: `../the-sprouts/<slug>/brief.md`
+- Limb **`limbPath`**: `../limb-<slug>`
+- Conversation **`path`**: `../limb-<slug>/the-conversation/...`
+
+Resolve those paths from the trunk working directory. Dashboard URLs map `/garden/<repo>/...`, `/sprouts/...`, and `/limbs/limb-...` onto those siblings.
+
+Do not add a new sprout or limb folder under this repo. Do not point Netlify at the trunk.

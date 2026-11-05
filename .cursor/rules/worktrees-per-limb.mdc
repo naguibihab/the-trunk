@@ -1,0 +1,14 @@
+---
+description: Each limb is its own git repo — open it as a workspace folder
+alwaysApply: true
+---
+
+# One repo per limb
+
+Each limb is a **sibling git repo** (`../limb-<slug>`), not a folder inside the trunk. Git already has one branch per limb repo.
+
+**Do not** use trunk git worktrees to edit two limbs. Open the limb folder as a Cursor workspace root (`move_agent_to_root` / multi-root `the-garden.code-workspace`).
+
+Keep trunk skills in the trunk checkout. Copy a build skill into `../limb-<slug>/.cursor/skills/` only when that app needs it.
+
+Legacy worktrees named `trunk-dogbowl` / `trunk-guineapig` / `trunk-people-keeper` were whole-monorepo checkouts from before the split — remove them when convenient; do not add new ones.

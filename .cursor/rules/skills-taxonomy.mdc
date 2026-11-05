@@ -1,0 +1,24 @@
+---
+description: Where skills live under .cursor/skills and what each category is for
+alwaysApply: true
+---
+
+# Skills Taxonomy
+
+All shared skills live under `.cursor/skills/`, grouped by purpose. When looking
+for or adding a skill, use the right category folder:
+
+| Folder | Purpose |
+|--------|---------|
+| `.cursor/skills/sprout-skills/` | Skills for creating new **sprouts** (early-stage ideas) before they graduate into limbs. |
+| `.cursor/skills/build-skills/` | Skills for building and coding, plus limb lifecycle and per-app skills. Some are copy-on-demand into a limb (e.g. `upload-to-testflight`, `sentry-healthcheck`); copy in only what a limb needs. |
+| `.cursor/skills/marketing-skills/` | Marketing skills. Contains subfolders (e.g. `aso-skills/`). |
+| `.cursor/skills/revenue-skills/` | Skills related to revenue reporting. |
+
+## Notes
+
+- A limb's own skills live under `limbs/<limb-name>/.cursor/skills/`. The
+  copy-on-demand skills in `build-skills/` are the source set that gets
+  transferred there.
+- Each skill is a directory containing a `SKILL.md`; some include
+  `references/`, `tools/`, or `README.md`.

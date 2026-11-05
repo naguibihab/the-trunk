@@ -1,0 +1,48 @@
+# OS / editor
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Property search alerts — local listing DB + raw dumps
+sprouts/property-search-alerts/data/
+
+# Python env / cache
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Secrets / credentials
+.env
+.env.local
+.env.main
+.env.sandbox
+.env.sentry-build-plugin
+sentry.properties
+*.p8
+*.pem
+AuthKey*
+
+# Build / cache artifacts
+dist/
+build/
+.expo/
+web-build/
+.next/
+DerivedData/
+ios/Pods/
+ios/build/
+android/build/
+*.ipa
+*.xcuserstate
+local.properties
+
+# Limb ship notes live under the-conversation/build/ (not Xcode/Expo build/)
+!**/the-conversation/build/
+!**/the-conversation/build/**
+
+# Allow templates
+!.env.example
+!**/.env.example

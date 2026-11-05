@@ -1,0 +1,33 @@
+---
+description: Last shipped version/build — use the-conversation/build/status.md as source of truth
+alwaysApply: true
+---
+
+# Ship status — `status.md` is source of truth
+
+For any limb, **`the-conversation/build/status.md`** records what was last
+uploaded/shipped. Treat it as authoritative — not `apps.json` `lastUpdated`,
+not the PM dashboard `tldr`, and not the current `Info.plist` build number alone
+(repo may lag until someone syncs).
+
+## When the user asks whether code changed since the last App Store / TestFlight release
+
+1. **Read** `<limbPath>/the-conversation/build/status.md` — note **Latest**
+   version, build, and **git SHA** on the most recent `## Ship / TestFlight`
+   bullet (if recorded).
+2. **Baseline** = that ship commit SHA, or the commit closest to the upload
+   date if SHA is missing.
+3. **Compare** `git log` / `git diff` from baseline → `HEAD`, scoped to
+   **binary-affecting paths**: `src/`, `app/`, `ios/`, `android/`, `app.json`,
+   `package.json` (deps). Exclude `the-conversation/`, docs, `.env.example`,
+   and `.cursor/` unless the user asks about those too.
+4. **Report** material vs housekeeping:
+   - **Material** — user-facing or binary changes (features, fixes, native bumps).
+   - **Not material** — status.md catch-up, comment-only env example, PM docs.
+5. Say clearly if you **cannot** confirm ASC approval state from git alone.
+
+## Maintainers
+
+After every successful TestFlight/App Store upload, update `status.md`
+immediately (see `upload-to-testflight` skill). Record version, build, date,
+and short git SHA so future “what changed since ship?” checks are exact.

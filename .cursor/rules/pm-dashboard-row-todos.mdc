@@ -1,0 +1,37 @@
+---
+description: PM dashboard row todos are user free text — never overwrite unless explicitly asked
+globs: dashboard/pm-dashboard-row-todos.json
+alwaysApply: true
+---
+
+# PM dashboard row todos — user free text
+
+`dashboard/pm-dashboard-row-todos.json` holds **your** scratch notes per app row on the PM
+dashboard. Each `rows["App Name"]` value is free-form Markdown in your voice — not
+agent-generated status.
+
+## Do not overwrite
+
+When syncing TLDRs, refreshing marketing/build notes, or updating limb
+`the-conversation/` files:
+
+- **Never replace** an existing `rows[...]` string unless you **explicitly** asked to
+  change that row's free text.
+- **Do not** substitute structured agent summaries (health, ranked to-dos, PH
+  checklists) into this file — that belongs in `apps.json` **`tldr`** and limb
+  conversation markdown.
+
+## Where agent updates go instead
+
+| What | Where |
+|------|--------|
+| Dashboard TLDR column | `apps.json` → `apps[].tldr` |
+| Build ship state | `the-conversation/build/status.md` |
+| Marketing ASO / PH | `the-conversation/marketing/*.md` |
+| Your scratch notes | `pm-dashboard-row-todos.json` — **hands off** |
+
+## If you need to touch row todos
+
+- **Append** only when the user asks to add something to their row notes.
+- **Edit in place** only the fragment the user quoted or named.
+- When unsure, update `tldr` / conversation files and **leave row todos unchanged**.

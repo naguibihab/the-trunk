@@ -1,0 +1,94 @@
+<!doctype html><!-- pm scaffold: ASO skills bundle -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Revenue — ASO skills</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f8f2;
+        --panel: #ffffff;
+        --panel-2: #f0f6ec;
+        --text: #1f2a1f;
+        --muted: #4f5d50;
+        --line: #dde8d8;
+        --accent: #4f8a4c;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 28px 20px 40px; }
+      .panel {
+        background: linear-gradient(180deg, var(--panel), var(--panel-2));
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      h1 { margin: 0 0 6px; font-size: 1.35rem; }
+      .sub { margin: 0 0 16px; color: var(--muted); font-size: 0.95rem; }
+      nav.pm-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      nav.pm-nav a {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+      nav.pm-nav a[aria-current="page"] {
+        background: rgba(79, 138, 76, 0.18);
+        font-weight: 600;
+        color: var(--text);
+      }
+      nav.pm-nav a:hover { text-decoration: underline; }
+      h2 { margin: 0 0 10px; font-size: 1.05rem; }
+      p, li { line-height: 1.55; color: var(--text); }
+      ul { margin: 8px 0 0; padding-left: 1.2rem; }
+      .muted { color: var(--muted); font-size: 0.92rem; }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        background: rgba(79, 138, 76, 0.14);
+        border-radius: 4px;
+        padding: 1px 5px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+    <nav class="pm-nav" aria-label="PM views">
+      <a href="competition.html">Competition</a>
+      <a href="revenue.html" aria-current="page">Revenue</a>
+      <a href="serviceHealth.html">Service health</a>
+    </nav>
+      <div class="panel">
+        <h1>Revenue</h1>
+        <p class="sub">ASO skills</p>
+        <h2>Period summary</h2>
+        <p class="muted">Log subscription revenue, trials, and customer counts (e.g. from RevenueCat) for the month you care about.</p>
+        <ul>
+          <li>Revenue vs prior period</li>
+          <li>New vs active customers</li>
+          <li>Trials, churn, notable drivers</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>Notes</h2>
+        <p class="muted">One line on what likely moved the numbers.</p>
+      </div>
+    </div>
+  </body>
+</html>

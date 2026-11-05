@@ -1,0 +1,1 @@
+Scratch notes for this garden. The dashboard server reads and writes this file.

@@ -1,0 +1,16 @@
+---
+description: Always use AEST (Australian Eastern Standard Time, UTC+10) for dates and times in the trunk
+alwaysApply: true
+---
+
+# Timezone — AEST
+
+For this trunk, all dates and times are **AEST (Australian Eastern Standard Time,
+UTC+10)** unless explicitly stated otherwise.
+
+- Write times in AEST. When a time is anchored to another zone (e.g. Product
+  Hunt resets at midnight US Pacific), **convert to AEST** and show it, keeping
+  the source zone in parentheses for reference.
+- Label times with `AEST` so there's no ambiguity.
+- Note: this repo uses AEST year-round for simplicity. Sydney observes daylight
+  time (AEDT, UTC+11) Oct–Apr — only switch to AEDT if the user asks for it.

@@ -1,0 +1,52 @@
+{
+  "name": "aso-skills",
+  "owner": {
+    "name": "Erencan",
+    "url": "https://github.com/eronred/aso-skills"
+  },
+  "metadata": {
+    "description": "ASO & App Marketing skills for Claude Code — keyword research, metadata optimization, competitor analysis, and app growth",
+    "version": "1.0.0",
+    "repository": "https://github.com/eronred/aso-skills"
+  },
+  "plugins": [
+    {
+      "name": "aso-skills",
+      "description": "ASO and app marketing skills for indie developers, marketers, and growth teams. Covers listing optimization, creatives, UA, monetization, market intelligence, and more.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./aso-ab-test-store-listing",
+        "./aso-android-aso",
+        "./aso-app-analytics",
+        "./aso-app-clips",
+        "./aso-app-icon-optimization",
+        "./aso-app-launch",
+        "./aso-app-marketing-context",
+        "./aso-app-store-featured",
+        "./aso-apple-search-ads",
+        "./aso-asc-metrics",
+        "./aso-audit",
+        "./aso-competitor-analysis",
+        "./aso-competitor-tracking",
+        "./aso-crash-analytics",
+        "./aso-in-app-events",
+        "./aso-keyword-research",
+        "./aso-localization",
+        "./aso-market-movers",
+        "./aso-market-pulse",
+        "./aso-metadata-optimization",
+        "./aso-monetization-strategy",
+        "./aso-onboarding-optimization",
+        "./aso-press-and-pr",
+        "./aso-rating-prompt-strategy",
+        "./aso-retention-optimization",
+        "./aso-review-management",
+        "./aso-screenshot-optimization",
+        "./aso-seasonal-aso",
+        "./aso-subscription-lifecycle",
+        "./aso-ua-campaign"
+      ]
+    }
+  ]
+}

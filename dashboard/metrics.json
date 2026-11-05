@@ -1,0 +1,16 @@
+{
+  "Example app": {
+    "revenueCat": {
+      "activeSubscriptions": "",
+      "mrr": "",
+      "revenueLast28d": "",
+      "newCustomersLast28d": "",
+      "activeTrials": ""
+    },
+    "sentry": {
+      "errorEvents": "",
+      "unhandledOrFatalEvents": ""
+    },
+    "notes": "Fill from your own RevenueCat / Sentry pass. Leave blank in a shared template."
+  }
+}

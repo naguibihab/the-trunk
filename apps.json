@@ -1,0 +1,47 @@
+{
+  "overarching": [],
+  "underarching": [],
+  "apps": [
+    {
+      "appName": "Example app",
+      "lifecycle": "new",
+      "description": "examples/the-conversation/brief.md",
+      "tldr": "Sample row. Replace this with your own app, or delete it once you add a real one.",
+      "links": [
+        {
+          "label": "Brief",
+          "url": "examples/the-conversation/brief.md"
+        }
+      ],
+      "potentialFeatures": [],
+      "conversation": {
+        "build": [
+          {
+            "label": "Status",
+            "path": "examples/the-conversation/build/status.md"
+          },
+          {
+            "label": "Open Issues",
+            "path": "examples/the-conversation/build/openIssues.md"
+          }
+        ],
+        "marketing": [
+          {
+            "label": "ASO Health",
+            "path": "examples/the-conversation/marketing/asoHealth.md"
+          }
+        ],
+        "revenue": [
+          {
+            "label": "Revenue Health",
+            "path": "examples/the-conversation/revenue/revenueHealth.md"
+          }
+        ]
+      },
+      "metrics": {
+        "mauMonthly": [],
+        "revenueMonthly": []
+      }
+    }
+  ]
+}

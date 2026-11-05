@@ -1,0 +1,2290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2316a34a'/><path d='M50 16l27.5 34H58.1L72.5 90H27.5L41.9 50H22.5z' fill='white'/></svg>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.8/wght.min.css" />
+    <title>The Tree</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --panel-2: #fafafa;
+        --text: #0a0a0a;
+        --muted: #737373;
+        --line: #e5e5e5;
+        --accent: #4f46e5;
+        --primary: #4f46e5;
+        --header-bg: #fafafa;
+        --hover-bg: #f5f5f5;
+        --panel-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 12px 28px -10px rgba(0, 0, 0, 0.10);
+        --danger-bg: #fef2f2;
+        --danger-line: #fecaca;
+        --danger-text: #991b1b;
+        --radius: 0.625rem;
+        --radius-card: 18px;
+      }
+      * { box-sizing: border-box; }
+      html, body { min-height: 100%; }
+      body {
+        margin: 0;
+        font-family: "Geist Variable", Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 0 24px;
+        background: color-mix(in srgb, var(--header-bg) 80%, transparent);
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        flex-shrink: 0;
+      }
+      .brand:hover { text-decoration: none; color: var(--text); }
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: #16a34a;
+        color: #fff;
+      }
+      .brand-mark svg { display: block; }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        min-width: 0;
+      }
+      .status-filters {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .status-filter-list {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      .status-filter-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--muted);
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        user-select: none;
+      }
+      .status-filter-btn:hover {
+        color: var(--text);
+        background: var(--hover-bg);
+      }
+      .status-filter-btn.is-active {
+        color: var(--primary);
+        background: color-mix(in srgb, var(--primary) 8%, transparent);
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-shrink: 0;
+        margin-left: auto;
+        white-space: nowrap;
+      }
+      #refreshStatus {
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .theme-select {
+        appearance: none;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--text);
+        border-radius: 8px;
+        padding: 8px 32px 8px 12px;
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%23737373' d='M2.5 4.5L6 8l3.5-3.5'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        cursor: pointer;
+      }
+      .theme-select:hover {
+        background-color: var(--hover-bg);
+      }
+      .wrap {
+        max-width: 1800px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+      .hero {
+        max-width: 44rem;
+        margin: 0 auto 36px;
+        text-align: center;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        margin: 0 0 16px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--primary) 8%, transparent);
+        color: var(--primary);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        color: var(--text);
+      }
+      .lede {
+        margin: 0 auto;
+        max-width: 38rem;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px 20px;
+        margin: 0 0 16px;
+        flex-wrap: wrap;
+      }
+      .status { color: var(--muted); font-size: 0.875rem; }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .stack { display: grid; gap: 20px; }
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-card);
+        overflow: hidden;
+        box-shadow: var(--panel-shadow);
+      }
+      .todos-panel { padding: 20px 22px; }
+      .todos-panel h2 {
+        margin: 0 0 10px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+      .notes-panel .notes-panel-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .notes-panel .notes-panel-head h2 {
+        margin: 0;
+      }
+      .notes-panel-hint {
+        font-size: 0.78rem;
+        color: var(--muted);
+        min-height: 1em;
+        flex-shrink: 0;
+      }
+      .notes-textarea {
+        display: block;
+        width: 100%;
+        min-height: 6.5rem;
+        margin: 0;
+        padding: 12px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--panel-2);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.9rem;
+        line-height: 1.45;
+        resize: vertical;
+      }
+      .notes-textarea:focus {
+        outline: none;
+        border-color: color-mix(in srgb, var(--primary) 45%, var(--line));
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 22%, transparent);
+      }
+      .notes-textarea::placeholder {
+        color: var(--muted);
+        opacity: 0.85;
+      }
+      .row-todos-cell {
+        min-width: 0;
+        vertical-align: top;
+        padding-top: 12px;
+      }
+      /* Scratchpad: ruled lines; numbered lists continue on Enter (see keydown handler); - [ ] / - [x] for checks */
+      .row-todos-textarea {
+        --check-line-height: 1.625rem;
+        display: block;
+        width: 100%;
+        min-height: 6.5rem;
+        max-height: 22rem;
+        margin: 0;
+        padding: 8px 10px 8px 12px;
+        box-sizing: border-box;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        border-left-width: 3px;
+        border-left-color: color-mix(in srgb, var(--primary) 28%, var(--line));
+        background-color: var(--panel-2);
+        background-image: repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent calc(var(--check-line-height) - 1px),
+          color-mix(in srgb, var(--line) 38%, transparent) calc(var(--check-line-height) - 1px),
+          color-mix(in srgb, var(--line) 38%, transparent) var(--check-line-height)
+        );
+        background-attachment: local;
+        background-origin: content-box;
+        color: var(--text);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        font-size: 0.8125rem;
+        line-height: var(--check-line-height);
+        tab-size: 4;
+        resize: vertical;
+      }
+      .row-todos-textarea:focus {
+        outline: none;
+        border-color: color-mix(in srgb, var(--primary) 45%, var(--line));
+        border-left-color: color-mix(in srgb, var(--primary) 42%, var(--line));
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 22%, transparent);
+      }
+      .row-todos-textarea::placeholder {
+        color: var(--muted);
+        opacity: 0.88;
+        font-family: inherit;
+        white-space: pre-line;
+      }
+      .table-wrap { overflow: auto; }
+      table {
+        /* Size to column grid so hiding optional cols narrows scroll, not 100% stretch */
+        width: max-content;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+      th, td {
+        text-align: left;
+        vertical-align: top;
+        padding: 16px 16px;
+        border-bottom: 1px solid var(--line);
+        line-height: 1.45;
+      }
+      th {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: var(--panel-2);
+        position: sticky;
+        top: 0;
+      }
+      tr:last-child td { border-bottom: 0; }
+      tr.app-row:hover td {
+        background: color-mix(in srgb, var(--hover-bg) 70%, var(--panel));
+      }
+      .app {
+        min-width: 160px;
+        vertical-align: top;
+      }
+      .app-name-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .app-name {
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .lifecycle-pill {
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: lowercase;
+        padding: 3px 9px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        line-height: 1.2;
+      }
+      .lifecycle-pill--active {
+        color: var(--primary);
+        border-color: color-mix(in srgb, var(--primary) 45%, var(--line));
+        background: color-mix(in srgb, var(--primary) 14%, var(--panel));
+      }
+      .lifecycle-pill--new {
+        color: var(--accent);
+        border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+        background: color-mix(in srgb, var(--accent) 14%, var(--panel));
+      }
+      .lifecycle-pill--limb {
+        color: #3fb950;
+        border-color: color-mix(in srgb, #3fb950 50%, var(--line));
+        background: color-mix(in srgb, #3fb950 18%, var(--panel));
+      }
+      .dash { color: var(--muted); }
+      .last-updated-cell { vertical-align: top; }
+      .last-updated-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+      }
+      .last-updated-line {
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.84rem;
+        line-height: 1.35;
+        color: var(--text);
+      }
+      .platform-icon {
+        width: 14px;
+        height: 14px;
+        flex: none;
+      }
+      .platform-icon--ios { color: var(--text); }
+      .platform-icon--android { color: #3ddc84; }
+      .link-cell { font-size: 0.9rem; }
+      .link-cell a { word-break: break-all; }
+      .link-stack { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+      .metric-sparkline-wrap { color: var(--accent); opacity: 0.85; line-height: 0; }
+      .conversation-link-row { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+      .build-metrics {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+      }
+      .build-metric-line {
+        margin: 0;
+        font-size: 0.84rem;
+        line-height: 1.42;
+      }
+      .build-metric-label {
+        color: var(--muted);
+        font-weight: 600;
+        margin-right: 6px;
+      }
+      .sentry-health-pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        line-height: 1.35;
+        border: 1px solid transparent;
+        text-transform: capitalize;
+      }
+      .sentry-health-pill--perfect {
+        color: #3fb950;
+        border-color: color-mix(in srgb, #3fb950 45%, var(--line));
+        background: color-mix(in srgb, #3fb950 14%, var(--panel));
+      }
+      .sentry-health-pill--ok {
+        color: #d29922;
+        border-color: color-mix(in srgb, #d29922 45%, var(--line));
+        background: color-mix(in srgb, #d29922 12%, var(--panel));
+      }
+      .sentry-health-pill--bad {
+        color: #f85149;
+        border-color: color-mix(in srgb, #f85149 45%, var(--line));
+        background: color-mix(in srgb, #f85149 12%, var(--panel));
+      }
+      .tldr-cell {
+        vertical-align: top;
+      }
+      .tldr-cell .tldr-summary {
+        margin: 0;
+        word-break: break-word;
+        font-size: 0.84rem;
+        line-height: 1.42;
+        color: var(--muted);
+      }
+      .tldr-cell .tldr-summary.md-preview {
+        white-space: normal;
+      }
+      .tldr-summary.md-preview > :first-child {
+        margin-top: 0;
+      }
+      .tldr-summary.md-preview > :last-child {
+        margin-bottom: 0;
+      }
+      .tldr-summary.md-preview p {
+        margin: 0.3em 0;
+      }
+      .tldr-summary.md-preview h1,
+      .tldr-summary.md-preview h2,
+      .tldr-summary.md-preview h3,
+      .tldr-summary.md-preview h4 {
+        margin: 0.4em 0 0.2em;
+        font-size: 0.9rem;
+        color: var(--text);
+      }
+      .tldr-summary.md-preview ul,
+      .tldr-summary.md-preview ol {
+        margin: 0.2em 0;
+        padding-left: 1.2em;
+      }
+      .tldr-summary.md-preview li {
+        margin: 0.1em 0;
+      }
+      .tldr-summary.md-preview strong {
+        color: var(--text);
+      }
+      .tldr-summary.md-preview code {
+        font-size: 0.82em;
+        padding: 0.05em 0.3em;
+        border-radius: 4px;
+        background: color-mix(in srgb, var(--muted) 16%, transparent);
+      }
+      .tldr-summary.md-preview small {
+        display: inline-block;
+        margin-top: 0.3em;
+        font-size: 0.68rem;
+        color: var(--muted);
+        opacity: 0.8;
+      }
+      .col-resize-handle {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 14px;
+        margin-right: -7px;
+        cursor: col-resize;
+        z-index: 6;
+        user-select: none;
+        touch-action: none;
+      }
+      .col-resize-handle::after {
+        content: "";
+        position: absolute;
+        right: 50%;
+        top: 12%;
+        bottom: 12%;
+        width: 3px;
+        transform: translateX(50%);
+        border-radius: 2px;
+        background: color-mix(in srgb, var(--muted) 50%, var(--line));
+        opacity: 0.95;
+        pointer-events: none;
+      }
+      .col-resize-handle:hover::after,
+      .col-resize-handle:active::after {
+        background: color-mix(in srgb, var(--primary) 65%, var(--line));
+      }
+      .col-resize-handle:hover {
+        background: color-mix(in srgb, var(--primary) 18%, transparent);
+      }
+      body.is-col-resizing {
+        cursor: col-resize;
+        user-select: none;
+      }
+      #appsTable thead th[data-col-resize] {
+        position: relative;
+        padding-right: 20px;
+      }
+      #appsTable thead th.drag-col[data-col-resize] {
+        padding-right: 12px;
+      }
+      .link-tldr {
+        margin: 0;
+        font-size: 0.84rem;
+        line-height: 1.42;
+        color: var(--muted);
+      }
+      .link-with-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        vertical-align: middle;
+      }
+      .link-icon {
+        width: 13px;
+        height: 13px;
+        flex: none;
+      }
+      .link-icon--revenuecat { color: #f2545b; }
+      .revenue-cell .money-figure {
+        font-weight: 700;
+        color: var(--text);
+      }
+      a { color: var(--primary); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .error-banner {
+        padding: 12px 16px;
+        border-radius: var(--radius);
+        border: 1px solid var(--danger-line);
+        background: var(--danger-bg);
+        color: var(--danger-text);
+        font-size: 0.92rem;
+        line-height: 1.45;
+        margin-bottom: 16px;
+      }
+      .error-banner[hidden] { display: none !important; }
+    tr.app-row.drag-active { opacity: 0.55; }
+      tr.app-row.drag-over td {
+        box-shadow: inset 0 3px 0 0 var(--primary);
+      }
+      .table-wrap thead th.drag-col {
+        position: relative;
+        vertical-align: middle;
+      }
+      td.drag-col {
+        width: 1.25rem;
+        padding-right: 6px;
+        color: var(--muted);
+        user-select: none;
+        vertical-align: middle;
+        cursor: grab;
+      }
+      tr.app-row:active td.drag-col { cursor: grabbing; }
+      .col-hidden {
+        display: none !important;
+      }
+      .column-checklist {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 0;
+        flex-wrap: wrap;
+      }
+      .column-checklist .column-checklist-label {
+        color: var(--muted);
+        font-size: 0.875rem;
+        margin-right: 4px;
+      }
+      .column-checklist .column-options {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px 16px;
+        flex-wrap: wrap;
+      }
+      .column-width-hint {
+        flex: 1 1 100%;
+        margin: 0;
+        padding: 0 0 0 2px;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        color: var(--muted);
+      }
+      .column-checklist label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.875rem;
+        color: var(--text);
+        cursor: pointer;
+        user-select: none;
+      }
+      .column-checklist input {
+        accent-color: var(--primary);
+        width: 1rem;
+        height: 1rem;
+      }
+      @media (max-width: 900px) {
+        .site-header {
+          height: auto;
+          min-height: 72px;
+          flex-wrap: wrap;
+          padding: 12px 16px;
+          gap: 10px;
+        }
+        .header-nav {
+          order: 3;
+          flex: 1 1 100%;
+          justify-content: flex-start;
+        }
+        .hero { text-align: left; margin-bottom: 24px; }
+        .lede { margin: 0; }
+        .wrap { padding: 28px 16px 64px; }
+      }
+    </style>
+    <script src="pm-dashboard-theme.js"></script>
+    <script src="marked.min.js"></script>
+    <script>
+      if (window.PmDashboardTheme) {
+        window.PmDashboardTheme.initFromStorageAndSync();
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1.6 12.4 8H9.3L11.6 14.4H4.4L6.7 8H3.6L8 1.6Z" fill="currentColor"/>
+          </svg>
+        </span>
+        The Tree
+      </a>
+      <nav class="header-nav">
+        <div class="status-filters">
+          <span class="sr-only">Filter status</span>
+          <div id="statusFilterList" class="status-filter-list" role="group" aria-label="Filter apps by status">
+            <button class="status-filter-btn is-active" type="button" data-status="new" aria-pressed="true">Sprout</button>
+            <button class="status-filter-btn is-active" type="button" data-status="active" aria-pressed="true">Growing</button>
+            <button class="status-filter-btn is-active" type="button" data-status="live revenue" aria-pressed="true">Fruitful</button>
+          </div>
+        </div>
+      </nav>
+      <div class="actions">
+        <label for="themeSelect" class="sr-only">Theme</label>
+        <select id="themeSelect" class="theme-select" aria-label="Select color theme">
+          <option value="slides" selected>Slides</option>
+          <option value="github-dark">GitHub Dark</option>
+          <option value="dark-pro">Dark Pro</option>
+          <option value="muted-elegant">Muted Elegant</option>
+          <option value="calm-minimal">Calm Minimal</option>
+          <option value="nature-soft">Nature Soft</option>
+          <option value="warm-friendly">Warm Friendly</option>
+          <option value="bold-startup">Bold Startup</option>
+        </select>
+        <span id="refreshStatus" class="status"></span>
+      </div>
+    </header>
+    <div class="wrap">
+      <div class="toolbar">
+        <div
+          id="columnChecklist"
+          class="column-checklist"
+          role="group"
+          aria-label="Show or hide optional table columns"
+        >
+          <span class="column-checklist-label">Columns</span>
+          <div class="column-options">
+            <label><input type="checkbox" data-col-toggle="links" checked /> Quick Links</label>
+            <label><input type="checkbox" data-col-toggle="build" checked /> Build</label>
+            <label><input type="checkbox" data-col-toggle="marketing" checked /> Marketing</label>
+            <label
+              ><input type="checkbox" data-col-toggle="revenue" checked />
+              Revenue</label
+            >
+          </div>
+        </div>
+        <span id="filterStatusText" class="status"></span>
+      </div>
+      <div id="errorBanner" class="error-banner" role="alert" hidden></div>
+      <div class="stack">
+        <section class="panel todos-panel notes-panel" aria-label="Dashboard notes">
+          <div class="notes-panel-head">
+            <h2>Notes</h2>
+            <span class="notes-panel-hint" id="notesSaveHint" aria-live="polite"></span>
+          </div>
+          <textarea
+            id="pmDashboardNotes"
+            class="notes-textarea"
+            rows="5"
+            placeholder="Saved to dashboard/pm-dashboard-notes.txt while the server runs (browser keeps a copy too)."
+            spellcheck="true"
+            aria-label="Free-form dashboard notes"
+          ></textarea>
+        </section>
+        <div class="panel table-wrap">
+          <table id="appsTable">
+            <colgroup id="dashboardColgroup">
+              <col data-col-width-key="drag" />
+              <col data-col-width-key="app" />
+              <col data-col-width-key="lastUpdated" />
+              <col data-col-width-key="links" />
+              <col data-col-width-key="rowTodos" />
+              <col data-col-width-key="tldr" />
+              <col data-col-width-key="build" />
+              <col data-col-width-key="marketing" />
+              <col data-col-width-key="revenue" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th class="drag-col" data-col-resize="drag" aria-label="Reorder">
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize reorder column"
+                  ></span>
+                </th>
+                <th data-col-resize="app">
+                  Limb
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize Limb column"
+                  ></span>
+                </th>
+                <th data-col-resize="lastUpdated">
+                  Last Updated
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize Last Updated column"
+                  ></span>
+                </th>
+                <th data-col="links" data-col-resize="links">
+                  Quick Links
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize Quick Links column"
+                  ></span>
+                </th>
+                <th data-col-resize="rowTodos">
+                  Todos
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize Todos column"
+                  ></span>
+                </th>
+                <th data-col-resize="tldr">
+                  TLDR
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize TLDR column"
+                  ></span>
+                </th>
+                <th data-col="build" data-col-resize="build">
+                  Build
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize Build column"
+                  ></span>
+                </th>
+                <th data-col="marketing" data-col-resize="marketing">
+                  Marketing
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize Marketing column"
+                  ></span>
+                </th>
+                <th data-col="revenue" data-col-resize="revenue">
+                  Revenue
+                  <span
+                    class="col-resize-handle"
+                    title="Drag to resize column"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label="Resize Revenue column"
+                  ></span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="appsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      const refreshStatus = document.getElementById("refreshStatus");
+      const themeSelect = document.getElementById("themeSelect");
+      const pmDashboardNotesEl = document.getElementById("pmDashboardNotes");
+      const notesSaveHintEl = document.getElementById("notesSaveHint");
+      const appsBody = document.getElementById("appsBody");
+      const errorBanner = document.getElementById("errorBanner");
+      const statusFilterList = document.getElementById("statusFilterList");
+      const filterStatusText = document.getElementById("filterStatusText");
+      /** Ordered `appKey` strings; persisted locally so refresh keeps custom order */
+      const appOrderStorageKey = "pmDashboardAppOrder";
+      /** Optional table columns toggled via checklist (checked === visible). */
+      const optionalColumnKeys = Object.freeze(["links", "build", "marketing", "revenue"]);
+      const columnVisibilityStorageKey = "pmDashboardColumnVisibility";
+      /** Pixel widths keyed by logical column (`data-col-width-key` on `<col>`); persisted locally. */
+      const columnWidthStorageKey = "pmDashboardColumnWidths";
+      /** Free-text dashboard scratchpad; persisted in localStorage only */
+      const pmDashboardNotesStorageKey = "pmDashboardFreeNotes";
+      /** Notes textarea height (px); UI preference persisted locally, like Todos textarea heights. */
+      const pmDashboardNotesHeightStorageKey = "pmDashboardNotesHeight";
+      /** Per-app Todos column textareas: localStorage mirror + server file when using dashboard/server.mjs */
+      const pmDashboardRowTodosStorageKey = "pmDashboardRowTodos";
+      /** @type {Record<string, string>} */
+      let rowTodosByApp = {};
+      /** Per-app Todos textarea heights (px); UI preference persisted locally, like column widths. */
+      const pmDashboardRowTodoHeightsStorageKey = "pmDashboardRowTodoHeights";
+      /** @type {Record<string, number>} */
+      let rowTodoHeightsByApp = {};
+      /** Live listing of files under each limb's the-conversation lanes (from /api/conversation-files). */
+      /** @type {Record<string, Record<string, Array<{name: string, path: string}>>>} */
+      let conversationFilesByLimb = {};
+      /** True once the conversation-files endpoint responded, so the filesystem becomes authoritative. */
+      let conversationFilesLoaded = false;
+      const COLUMN_WIDTH_KEYS = Object.freeze([
+        "drag",
+        "app",
+        "lastUpdated",
+        "links",
+        "rowTodos",
+        "tldr",
+        "build",
+        "marketing",
+        "revenue",
+      ]);
+
+      /** @type {Record<string, number>} */
+      const COLUMN_WIDTH_DEFAULTS = Object.freeze({
+        drag: 44,
+        app: 198,
+        lastUpdated: 148,
+        links: 140,
+        rowTodos: 240,
+        tldr: 260,
+        build: 176,
+        marketing: 176,
+        revenue: 184,
+      });
+
+      /** @type {Record<string, number>} */
+      const COLUMN_WIDTH_MIN = Object.freeze({
+        drag: 28,
+        app: 100,
+        lastUpdated: 96,
+        links: 90,
+        rowTodos: 140,
+        tldr: 120,
+        build: 96,
+        marketing: 96,
+        revenue: 96,
+      });
+
+      /** @type {Record<string, boolean>} */
+      let columnVisibility = {};
+
+      /** @type {Record<string, number>} */
+      let columnWidths = {};
+
+      const columnChecklistEl = document.getElementById("columnChecklist");
+
+      function defaultColumnVisibility() {
+        /** @type {Record<string, boolean>} */
+        const o = {};
+        optionalColumnKeys.forEach((k) => {
+          o[k] = true;
+        });
+        return o;
+      }
+
+      function readColumnVisibility() {
+        try {
+          const raw = localStorage.getItem(columnVisibilityStorageKey);
+          if (!raw) return defaultColumnVisibility();
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object") return defaultColumnVisibility();
+          const merged = defaultColumnVisibility();
+          optionalColumnKeys.forEach((k) => {
+            if (typeof parsed[k] === "boolean") merged[k] = parsed[k];
+          });
+          return merged;
+        } catch {
+          return defaultColumnVisibility();
+        }
+      }
+
+      function writeColumnVisibility() {
+        try {
+          localStorage.setItem(
+            columnVisibilityStorageKey,
+            JSON.stringify(columnVisibility)
+          );
+        } catch {
+          /* ignore */
+        }
+      }
+
+      /** Drag + App + Last Updated + row Todos + TLDR + visible optional columns (Build, Marketing, Revenue). */
+      function visibleTableColSpan() {
+        const opts = optionalColumnKeys.filter((k) => columnVisibility[k] !== false).length;
+        return 5 + opts;
+      }
+
+      function syncCheckboxesFromColumnVisibility() {
+        columnChecklistEl?.querySelectorAll("[data-col-toggle]").forEach((input) => {
+          if (!(input instanceof HTMLInputElement)) return;
+          const k = input.dataset.colToggle;
+          if (!k || !optionalColumnKeys.includes(k)) return;
+          input.checked = columnVisibility[k] !== false;
+        });
+      }
+
+      /** Sum of persisted/default widths for columns that participate in layout (visible). */
+      function visibleTableWidthPx() {
+        let sum = 0;
+        COLUMN_WIDTH_KEYS.forEach((k) => {
+          if (optionalColumnKeys.includes(k) && columnVisibility[k] === false) return;
+          const w = columnWidths[k] ?? COLUMN_WIDTH_DEFAULTS[k];
+          if (typeof w === "number" && Number.isFinite(w)) sum += w;
+        });
+        return Math.max(Math.round(sum), 0);
+      }
+
+      function syncTableLayoutMinWidth() {
+        const table = document.querySelector(".panel.table-wrap table");
+        if (!table) return;
+        const minPx = visibleTableWidthPx();
+        table.style.minWidth = minPx > 0 ? `${minPx}px` : "";
+      }
+
+      function applyColumnVisibility() {
+        const table = document.querySelector(".panel.table-wrap table");
+        if (!table) return;
+        const group = document.getElementById("dashboardColgroup");
+        optionalColumnKeys.forEach((k) => {
+          const hidden = columnVisibility[k] === false;
+          table.querySelectorAll(`[data-col="${k}"]`).forEach((el) => {
+            el.classList.toggle("col-hidden", hidden);
+          });
+          const col = group?.querySelector(`col[data-col-width-key="${k}"]`);
+          if (col) col.classList.toggle("col-hidden", hidden);
+        });
+        syncTableLayoutMinWidth();
+      }
+
+      function readColumnWidths() {
+        try {
+          const raw = localStorage.getItem(columnWidthStorageKey);
+          if (!raw) {
+            return /** @type {Record<string, number>} */ ({ ...COLUMN_WIDTH_DEFAULTS });
+          }
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object") {
+            return /** @type {Record<string, number>} */ ({ ...COLUMN_WIDTH_DEFAULTS });
+          }
+          const out = /** @type {Record<string, number>} */ ({ ...COLUMN_WIDTH_DEFAULTS });
+          COLUMN_WIDTH_KEYS.forEach((k) => {
+            const n = parsed[k];
+            if (typeof n === "number" && Number.isFinite(n)) {
+              const minW = COLUMN_WIDTH_MIN[k] ?? 64;
+              out[k] = Math.max(minW, Math.round(n));
+            }
+          });
+          return out;
+        } catch {
+          return /** @type {Record<string, number>} */ ({ ...COLUMN_WIDTH_DEFAULTS });
+        }
+      }
+
+      function writeColumnWidths() {
+        try {
+          const toSave = {};
+          COLUMN_WIDTH_KEYS.forEach((k) => {
+            const w = columnWidths[k];
+            if (typeof w === "number" && Number.isFinite(w)) toSave[k] = w;
+          });
+          localStorage.setItem(columnWidthStorageKey, JSON.stringify(toSave));
+        } catch {
+          /* ignore */
+        }
+      }
+
+      function applyColumnWidthsToCols() {
+        const group = document.getElementById("dashboardColgroup");
+        if (!group) return;
+        group.querySelectorAll("col[data-col-width-key]").forEach((col) => {
+          const key = col.dataset.colWidthKey;
+          if (!key) return;
+          const w = columnWidths[key];
+          if (typeof w !== "number" || !Number.isFinite(w)) return;
+          col.style.width = `${w}px`;
+        });
+      }
+
+      let columnResizeHandlersBound = false;
+
+      function bindColumnResizeHandlers() {
+        if (columnResizeHandlersBound) return;
+        const thead = document.querySelector("#appsTable thead");
+        if (!thead) return;
+        columnResizeHandlersBound = true;
+
+        thead.addEventListener("mousedown", (e) => {
+          const handle = e.target.closest?.(".col-resize-handle");
+          if (!handle || !thead.contains(handle)) return;
+          e.preventDefault();
+          e.stopPropagation();
+          const th = handle.closest("th[data-col-resize]");
+          const key = th?.dataset?.colResize;
+          if (!key || !(key in COLUMN_WIDTH_DEFAULTS)) return;
+
+          const startX = e.clientX;
+          const startWidth = columnWidths[key] ?? COLUMN_WIDTH_DEFAULTS[key];
+          const minW = COLUMN_WIDTH_MIN[key] ?? 64;
+          document.body.classList.add("is-col-resizing");
+
+          const onMove = (ev) => {
+            const dx = ev.clientX - startX;
+            const next = Math.max(minW, Math.round(startWidth + dx));
+            columnWidths[key] = next;
+            applyColumnWidthsToCols();
+            syncTableLayoutMinWidth();
+          };
+          const onUp = () => {
+            document.body.classList.remove("is-col-resizing");
+            writeColumnWidths();
+            syncTableLayoutMinWidth();
+            document.removeEventListener("mousemove", onMove);
+            document.removeEventListener("mouseup", onUp);
+          };
+          document.addEventListener("mousemove", onMove);
+          document.addEventListener("mouseup", onUp);
+        });
+      }
+
+      /** Last rendered apps slice (canonical objects from apps.json); order respects drag-sort */
+      let appsOrderedSnapshot = [];
+      const allFilterStatuses = ["new", "active", "live", "revenue"];
+      let selectedStatuses = new Set(allFilterStatuses);
+
+      /** @param {{ appName?: string, name?: string, title?: string }} app */
+      function appKey(app) {
+        const k = String(app.appName ?? app.name ?? app.title ?? "").trim();
+        return k || ""; /* empty merges badly—still unique per row usually */
+      }
+
+      /** @returns {string[]} */
+      function readStoredOrder() {
+        try {
+          const raw = localStorage.getItem(appOrderStorageKey);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed)
+            ? parsed.filter((x) => typeof x === "string").map((s) => s.trim()).filter(Boolean)
+            : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function writeStoredOrder(orderKeys) {
+        try {
+          localStorage.setItem(appOrderStorageKey, JSON.stringify(orderKeys));
+        } catch {
+          /* ignore quota / privacy mode */
+        }
+      }
+
+      function mergeCanonicalOrder(canonicalKeys, savedKeys) {
+        const canon = canonicalKeys.slice();
+        const set = new Set(canon);
+        const savedFiltered = savedKeys.filter((k) => set.has(k));
+        const tail = canon.filter((k) => !savedFiltered.includes(k));
+        return [...savedFiltered, ...tail];
+      }
+
+      /** @param {string[]} keysOrdered */
+      function applyKeysOrderExactly(apps, keysOrdered) {
+        const byKey = new Map();
+        for (const app of apps) {
+          const k = appKey(app);
+          if (k) byKey.set(k, app);
+        }
+        const out = [];
+        const seen = new Set();
+        for (const k of keysOrdered) {
+          const o = byKey.get(k);
+          if (o) {
+            out.push(o);
+            seen.add(k);
+          }
+        }
+        for (const app of apps) {
+          const k = appKey(app);
+          if (!seen.has(k)) out.push(app);
+        }
+        return out;
+      }
+
+      function insertKeyBefore(keys, movedKey, beforeKey) {
+        if (!movedKey || !beforeKey || movedKey === beforeKey) return keys.slice();
+        const without = keys.filter((k) => k !== movedKey);
+        const pos = without.indexOf(beforeKey);
+        const i = pos < 0 ? without.length : pos;
+        const next = without.slice();
+        next.splice(i, 0, movedKey);
+        return next;
+      }
+
+      function esc(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      /** Repo-relative path → URL path with leading slash */
+      function toUrlPath(repoPath) {
+        const trimmed = String(repoPath ?? "").trim().replace(/^\/+/, "");
+        if (!trimmed) return "";
+        const garden = trimmed.startsWith("../")
+          ? "garden/" + trimmed.slice(3)
+          : trimmed;
+        return "/" + garden.split("/").map(encodeURIComponent).join("/");
+      }
+
+      /**
+       * Normalize link lanes (build / marketing / revenue / health / aso / competition): legacy string paths or { path, tldr }.
+       * Build may also carry `lastReleaseDate`, `openIssues`, `failedE2e` (see `buildCell`).
+       * Health may carry `sentryHealth`: `perfect` | `ok` | `bad` — Build column shows that row only when `path` and a known `sentryHealth` are both set (see `sentryHealthRowHtml`).
+       * `aso` may carry `asoHealth`: `perfect` | `ok` | `bad` — Marketing column shows that row only when `path` and a known `asoHealth` are both set (see `asoHealthRowHtml`).
+       */
+      function linkSpec(raw) {
+        if (raw == null) return { path: "", tldr: "" };
+        if (typeof raw === "string") return { path: raw.trim(), tldr: "" };
+        if (typeof raw === "object") {
+          const path = typeof raw.path === "string" ? raw.path.trim() : "";
+          const tldr = typeof raw.tldr === "string" ? raw.tldr.trim() : "";
+          return { path, tldr };
+        }
+        return { path: "", tldr: "" };
+      }
+
+      function formatTldrText(text, emphasizeMoney = false) {
+        const raw = String(text ?? "");
+        if (!emphasizeMoney) return esc(raw);
+        const moneyRegex = /\$[0-9][0-9,]*(?:\.[0-9]+)?(?:[kKmMbB])?/g;
+        let out = "";
+        let last = 0;
+        let m;
+        while ((m = moneyRegex.exec(raw)) !== null) {
+          if (m.index > last) out += esc(raw.slice(last, m.index));
+          out += `<span class="money-figure">${esc(m[0])}</span>`;
+          last = moneyRegex.lastIndex;
+        }
+        if (last < raw.length) out += esc(raw.slice(last));
+        return out;
+      }
+
+      /** Revenue column: `tldr` + **Open** when `path` set; no placeholder **Open** when `path` empty; single **—** when both empty. */
+      function linkCell(
+        specOrRaw,
+        label,
+        cellClass = "",
+        emphasizeMoney = false,
+        dataCol = ""
+      ) {
+        const { path: repoPath, tldr } = linkSpec(specOrRaw);
+        const url = toUrlPath(repoPath);
+        const tdClass = ["link-cell", cellClass].filter(Boolean).join(" ");
+        const dataAttr = dataCol ? ` data-col="${esc(dataCol)}"` : "";
+        const parts = [];
+        if (tldr) parts.push(`<p class="link-tldr">${formatTldrText(tldr, emphasizeMoney)}</p>`);
+        if (url) parts.push(`<a href="${esc(url)}">${esc(label)}</a>`);
+        const inner =
+          parts.length > 0
+            ? `<div class="link-stack">${parts.join("")}</div>`
+            : `<div class="link-stack"><span class="dash">—</span></div>`;
+        return `<td class="${tdClass}"${dataAttr}>${inner}</td>`;
+      }
+
+      function nonNegIntOrNull(v) {
+        if (v === undefined || v === null || v === "") return null;
+        const n = Number(v);
+        if (!Number.isFinite(n) || n < 0 || !Number.isInteger(n)) return null;
+        return n;
+      }
+
+      /** `YYYY-MM-DD` → locale medium date; invalid → "". */
+      function formatIsoDateMedium(iso) {
+        const s = String(iso ?? "").trim();
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return "";
+        const [y, mo, d] = s.split("-").map(Number);
+        const dt = new Date(y, mo - 1, d);
+        if (Number.isNaN(dt.getTime())) return "";
+        try {
+          return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(dt);
+        } catch {
+          return s;
+        }
+      }
+
+      /** Parses sync-conversation metrics line on Conversation status `tldr`. */
+      function parseConversationStatusTldrMetrics(tldr) {
+        const s = String(tldr ?? "").trim();
+        const m = s.match(/(\d+)\s+issues?,\s*(\d+)\s+tests?\s+passed,\s*(\d+)\s+tests?\s+failed/i);
+        if (!m) return { openIssues: null, failedE2e: null };
+        return { openIssues: Number(m[1]), failedE2e: Number(m[3]) };
+      }
+
+      function metricsFromConversationDeets(app) {
+        const list = Array.isArray(app?.deets) ? app.deets : [];
+        for (const item of list) {
+          if (!item || typeof item !== "object") continue;
+          if (String(item.label ?? "").trim().toLowerCase() !== "conversation status") continue;
+          return parseConversationStatusTldrMetrics(item.tldr);
+        }
+        return { openIssues: null, failedE2e: null };
+      }
+
+      /** `apps[].health`: optional `sentryHealth` ∈ perfect | ok | bad; Open uses `path`. Row omitted when either is missing — no Sentry report path or qualitative health unknown. */
+      function sentryHealthRowHtml(app) {
+        const h = app?.health;
+        let level = null;
+        let repoPath = "";
+        if (typeof h === "string") {
+          repoPath = h.trim();
+        } else if (h && typeof h === "object") {
+          repoPath = typeof h.path === "string" ? h.path.trim() : "";
+          const raw = h.sentryHealth ?? h.sentry_health;
+          if (typeof raw === "string") {
+            const x = raw.trim().toLowerCase();
+            if (x === "perfect" || x === "ok" || x === "bad") level = x;
+          }
+        }
+        if (!repoPath || !level) return "";
+
+        const pillHtml = `<span class="sentry-health-pill sentry-health-pill--${level}">${esc(level)}</span>`;
+        const url = toUrlPath(repoPath);
+        const openHtml = url
+          ? `<a href="${esc(url)}">${esc("Open")}</a>`
+          : `<span class="dash">—</span>`;
+        return `<p class="build-metric-line"><span class="build-metric-label">Sentry health</span> ${pillHtml} · ${openHtml}</p>`;
+      }
+
+      /** `apps[].aso`: optional `asoHealth` ∈ perfect | ok | bad; Open uses `path`. Row omitted when either is missing — no ASO report path or qualitative health unknown. */
+      function asoHealthRowHtml(app) {
+        const a = app?.aso;
+        let level = null;
+        let repoPath = "";
+        if (typeof a === "string") {
+          repoPath = a.trim();
+        } else if (a && typeof a === "object") {
+          repoPath = typeof a.path === "string" ? a.path.trim() : "";
+          const raw = a.asoHealth ?? a.aso_health;
+          if (typeof raw === "string") {
+            const x = raw.trim().toLowerCase();
+            if (x === "perfect" || x === "ok" || x === "bad") level = x;
+          }
+        }
+        if (!repoPath || !level) return "";
+
+        const pillHtml = `<span class="sentry-health-pill sentry-health-pill--${level}">${esc(level)}</span>`;
+        const url = toUrlPath(repoPath);
+        const openHtml = url
+          ? `<a href="${esc(url)}">${esc("Open")}</a>`
+          : `<span class="dash">—</span>`;
+        return `<p class="build-metric-line"><span class="build-metric-label">ASO health</span> ${pillHtml} · ${openHtml}</p>`;
+      }
+
+      /** Marketing column: ASO health row only when `aso.path` + known `asoHealth`; then optional marketing `tldr` + Open (`marketing`). */
+      function marketingCell(app) {
+        const raw = app?.marketing;
+        const { path: repoPath, tldr } = linkSpec(raw);
+        const asoRow = asoHealthRowHtml(app);
+        const tldrHtml = tldr ? `<p class="link-tldr">${formatTldrText(tldr, false)}</p>` : "";
+        const url = toUrlPath(repoPath);
+        const linkHtml = url ? `<a href="${esc(url)}">Open</a>` : `<span class="dash">—</span>`;
+        return `<td class="link-cell marketing-cell" data-col="marketing"><div class="link-stack"><div class="build-metrics">${asoRow}</div>${tldrHtml}${linkHtml}</div></td>`;
+      }
+
+      /**
+       * Build column: optional last release (valid `build.lastReleaseDate` only), issues/E2E,
+       * Sentry health row only when `health.path` and known `health.sentryHealth` are set, optional build `path`/`tldr`.
+       */
+      function buildCell(app) {
+        const raw = app?.build;
+        const { path: repoPath, tldr } = linkSpec(raw);
+        let openIssues = null;
+        let failedE2e = null;
+        let lastReleaseIso = "";
+        if (raw && typeof raw === "object") {
+          openIssues = nonNegIntOrNull(raw.openIssues);
+          failedE2e = nonNegIntOrNull(raw.failedE2e);
+          if (typeof raw.lastReleaseDate === "string") lastReleaseIso = raw.lastReleaseDate.trim();
+        }
+        const inferred = metricsFromConversationDeets(app);
+        if (openIssues === null) openIssues = inferred.openIssues;
+        if (failedE2e === null) failedE2e = inferred.failedE2e;
+
+        const releaseDisp = formatIsoDateMedium(lastReleaseIso);
+        const releaseLine = releaseDisp
+          ? `<p class="build-metric-line"><span class="build-metric-label">Last release</span> ${esc(releaseDisp)}</p>`
+          : "";
+
+        let countsHtml;
+        if (openIssues === null && failedE2e === null) {
+          countsHtml = `<span class="dash">—</span>`;
+        } else {
+          const iTxt =
+            openIssues === null
+              ? "— open issues"
+              : openIssues === 1
+                ? "1 open issue"
+                : `${esc(String(openIssues))} open issues`;
+          const eTxt =
+            failedE2e === null
+              ? "— failed E2E tests"
+              : failedE2e === 1
+                ? "1 failed E2E test"
+                : `${esc(String(failedE2e))} failed E2E tests`;
+          countsHtml = `${iTxt} · ${eTxt}`;
+        }
+
+        const tldrHtml = tldr ? `<p class="link-tldr">${formatTldrText(tldr, false)}</p>` : "";
+        const url = toUrlPath(repoPath);
+        const linkHtml = url ? `<a href="${esc(url)}">Open</a>` : `<span class="dash">—</span>`;
+        const sentryRow = sentryHealthRowHtml(app);
+
+        return `<td class="link-cell build-cell" data-col="build"><div class="link-stack"><div class="build-metrics">${releaseLine}<p class="build-metric-line">${countsHtml}</p>${sentryRow}</div>${tldrHtml}${linkHtml}</div></td>`;
+      }
+
+      /** Monthly sparkline from apps.json metrics (YYYY-MM + value). */
+      function metricsSparklineSvg(series, className) {
+        const pts = Array.isArray(series)
+          ? series.filter((p) => p && typeof p.value === "number" && Number.isFinite(p.value))
+          : [];
+        if (pts.length < 2) return "";
+        const w = 72;
+        const h = 22;
+        const vals = pts.map((p) => p.value);
+        const min = Math.min(...vals);
+        const max = Math.max(...vals);
+        const span = max - min || 1;
+        const coords = vals
+          .map((v, i) => {
+            const x = (i / (vals.length - 1)) * (w - 4) + 2;
+            const y = h - 2 - ((v - min) / span) * (h - 4);
+            return `${x.toFixed(1)},${y.toFixed(1)}`;
+          })
+          .join(" ");
+        return `<svg class="${className}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="${coords}"/></svg>`;
+      }
+
+      /** Build / Marketing / Revenue lane links from apps.json conversation.* */
+      /** Words to render fully uppercase in file labels. */
+      const fileLabelAcronyms = new Set(["aso", "mau", "ua", "kpi", "roas", "cpp", "iap"]);
+
+      /** Filename → readable label, e.g. "openIssues.md" → "Open Issues", "asoHealth.md" → "ASO Health". */
+      function prettifyFileLabel(filename) {
+        let base = String(filename ?? "").replace(/\.[^.]+$/, "");
+        base = base
+          .replace(/[-_]+/g, " ")
+          .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+          .trim();
+        if (!base) return String(filename ?? "");
+        return base
+          .split(/\s+/)
+          .map((word) =>
+            fileLabelAcronyms.has(word.toLowerCase())
+              ? word.toUpperCase()
+              : word.charAt(0).toUpperCase() + word.slice(1)
+          )
+          .join(" ");
+      }
+
+      /**
+       * Lane link list. Source of truth is the live folder listing when the
+       * conversation-files endpoint loaded; otherwise falls back to apps.json `conversation`.
+       * @returns {string[]} anchor markup, one per file
+       */
+      function laneLinkMarkup(app, lane) {
+        const limbKey = typeof app?.limbPath === "string" ? app.limbPath : "";
+        if (conversationFilesLoaded) {
+          const files =
+            (limbKey && conversationFilesByLimb[limbKey]?.[lane]) || [];
+          return files
+            .map((f) => {
+              const url = toUrlPath(f.path);
+              if (!url) return "";
+              return `<a href="${esc(url)}" title="${esc(f.path)}">${esc(prettifyFileLabel(f.name))}</a>`;
+            })
+            .filter(Boolean);
+        }
+        const items = Array.isArray(app?.conversation?.[lane])
+          ? app.conversation[lane]
+          : [];
+        return items
+          .map((item) => {
+            if (!item || typeof item !== "object") return "";
+            const url = toUrlPath(item.path);
+            if (!url) return "";
+            return `<a href="${esc(url)}">${esc(item.label || "Open")}</a>`;
+          })
+          .filter(Boolean);
+      }
+
+      function conversationLaneCell(app, lane, cellClass, dataCol, metricKey = "") {
+        const links = laneLinkMarkup(app, lane);
+        const metricSeries = metricKey && app?.metrics?.[metricKey];
+        const spark =
+          metricKey === "mauMonthly"
+            ? metricsSparklineSvg(metricSeries, "metric-sparkline metric-sparkline--mau")
+            : metricKey === "revenueMonthly"
+              ? metricsSparklineSvg(metricSeries, "metric-sparkline metric-sparkline--revenue")
+              : "";
+        const sparkHtml = spark ? `<div class="metric-sparkline-wrap">${spark}</div>` : "";
+        const inner =
+          links.length > 0
+            ? `<div class="link-stack conversation-links">${sparkHtml}<div class="conversation-link-row">${links.join("")}</div></div>`
+            : sparkHtml
+              ? `<div class="link-stack">${sparkHtml}</div>`
+              : `<span class="dash">—</span>`;
+        return `<td class="link-cell ${cellClass}" data-col="${dataCol}">${inner}</td>`;
+      }
+
+      /** Render a tldr Markdown string to HTML; falls back to escaped text if `marked` is unavailable. */
+      function renderFocusMarkdown(text) {
+        const raw = String(text ?? "");
+        if (typeof marked !== "undefined" && marked && typeof marked.parse === "function") {
+          try {
+            marked.setOptions({ gfm: true, breaks: false });
+            return marked.parse(raw);
+          } catch {
+            /* fall through to plain text */
+          }
+        }
+        return `<p>${formatTldrText(raw, false)}</p>`;
+      }
+
+      /** Focus summary from apps.json `tldr` (legacy fallback `focusTldr`), rendered as a Markdown preview. */
+      function tldrSummaryCell(app) {
+        const raw = app?.tldr ?? app?.focusTldr;
+        const text = typeof raw === "string" ? raw.trim() : "";
+        if (!text) {
+          return `<td class="link-cell tldr-cell"><span class="dash">—</span></td>`;
+        }
+        return `<td class="link-cell tldr-cell"><div class="tldr-summary md-preview">${renderFocusMarkdown(text)}</div></td>`;
+      }
+
+      /** Inline icons keyed by an app link's `icon` field. */
+      const LINK_ICON_SVG = Object.freeze({
+        sentry:
+          '<svg class="link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13.91 2.505c-.873-1.448-2.972-1.448-3.844 0L6.904 7.92a15.478 15.478 0 0 1 8.53 12.811h-2.221A13.301 13.301 0 0 0 5.784 9.814l-2.926 5.06a7.65 7.65 0 0 1 4.435 5.848H2.194a.365.365 0 0 1-.298-.534l1.413-2.402a5.16 5.16 0 0 0-1.614-.913L.296 19.275a2.182 2.182 0 0 0 .812 2.999 2.24 2.24 0 0 0 1.086.288h6.983a9.322 9.322 0 0 0-3.845-8.318l1.11-1.922a11.47 11.47 0 0 1 4.95 10.24h5.915a17.242 17.242 0 0 0-7.885-15.28l2.244-3.845a.37.37 0 0 1 .504-.13c.255.14 9.75 16.708 9.928 16.9a.365.365 0 0 1-.327.543h-2.287c.029.612.029 1.223 0 1.831h2.297a2.206 2.206 0 0 0 1.922-3.31z"/></svg>',
+        appstore:
+          '<svg class="link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zM8.04 16.5a.75.75 0 0 1-.65.375.74.74 0 0 1-.375-.1.75.75 0 0 1-.275-1.025l.59-1.02a.75.75 0 0 1 1.3.75l-.59 1.02zm6.66-2.4H6.4a.75.75 0 0 1 0-1.5h.86l3.02-5.23-.78-1.35a.75.75 0 1 1 1.3-.75l.2.35.2-.35a.75.75 0 0 1 1.3.75l-3.51 6.08h2.54l.87 1.5h-.4zm3.84 0h-1.51l.87 1.5.59 1.02a.75.75 0 0 1-1.3.75L13.9 12.6a4.6 4.6 0 0 1-.74-2.52c0-.86.42-1.66.86-2.3a.75.75 0 0 1 1.24.84c-.36.53-.6 1-.6 1.46 0 .42.16.86.42 1.32l.05.1h2.41a.75.75 0 0 1 0 1.5z"/></svg>',
+        revenuecat:
+          '<svg class="link-icon link-icon--revenuecat" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4.3036.3999c-1.5246 0-3.2129.1508-4.303.4136v14.9997c.3083.1722.8432.28 1.5632.28.7404 0 1.2553-.1072 1.5433-.28v-5.2323a14.8588 14.8588 0 0 0 2.121.1512h.3294l2.8604 5.0588c.432.195 1.0288.3024 1.9348.3024.8033 0 1.38-.1104 1.6476-.3024l-3.437-5.8358c1.4195-.8004 2.326-2.2698 2.326-4.4964C10.8894 1.827 8.4232.4 4.3037.4zm15.4543 0c-1.3788 0-2.624.2707-3.6901.7945-2.4552 1.203-3.9609 3.7376-3.9609 7.3627 0 4.8245 2.6552 7.7155 7.1659 7.7155.9 0 1.5868-.3014 2.005.2554.4194.5568-.3582 1.2165-.7746 1.5105-1.6338 1.1544-5.7217-.1024-9.4908-.4804C5.5994 17.015.9264 16.3009.146 19.1928c-.4104 1.5264.1225 2.5013.6421 3.0503 1.044 1.1046 2.882 1.357 4.344 1.357a13.959 13.959 0 0 0 2.0508-.1558 1.311 1.311 0 0 0 1.023-.8063c.1674-.4254.0861-.904-.212-1.2562a1.3464 1.3464 0 0 0-1.2352-.4523c-1.5012.2706-3.6213.8685-4.4343.0105-.2748-.291-.2268-1.0037 0-1.2257.6048-.8748 4.493-.5393 8.4127-.0293 4.329.4344 8.4023 1.8609 10.945.6351.9955-.48 2.318-1.1941 2.318-3.792h-.0012c0-1.1473-.1489-2.274-.4476-3.3797-1.3818.1872-2.4783.2857-3.2883.2941-2.845 0-4.869-1.4484-4.869-5.0963 0-3.648 2.0461-5.1573 5.0179-5.1573 1.2011 0 2.129.2512 3.1405.7336.1062-.9234-.1058-2.1605-.5906-2.8523-.78-.4608-2.0014-.6703-3.2038-.6703zM4.51 3.1889c2.0579 0 3.2108.7111 3.2108 2.4421 0 1.6824-1.0912 2.3554-2.8816 2.3554a10.2838 10.2838 0 0 1-1.7706-.1511V3.3166a7.7782 7.7782 0 0 1 1.4413-.1277z"/></svg>',
+      });
+
+      /** Links column: external/app links from apps.json `links` (`[{ label, url, icon? }]`). */
+      function linksCell(app) {
+        const items = Array.isArray(app?.links) ? app.links : [];
+        const parts = items
+          .map((item) => {
+            if (!item || typeof item !== "object") return "";
+            const rawUrl = typeof item.url === "string" ? item.url.trim() : "";
+            if (!rawUrl) return "";
+            const isExternal = /^https?:\/\//i.test(rawUrl);
+            const href = isExternal ? rawUrl : toUrlPath(rawUrl);
+            if (!href) return "";
+            const label =
+              typeof item.label === "string" && item.label.trim()
+                ? item.label.trim()
+                : "Open";
+            const icon = LINK_ICON_SVG[item.icon] || "";
+            const extAttr = isExternal
+              ? ' target="_blank" rel="noopener noreferrer"'
+              : "";
+            return `<a class="link-with-icon" href="${esc(href)}"${extAttr}>${icon}<span>${esc(label)}</span></a>`;
+          })
+          .filter(Boolean);
+        const inner = parts.length
+          ? `<div class="link-stack conversation-links"><div class="conversation-link-row">${parts.join("")}</div></div>`
+          : `<span class="dash">—</span>`;
+        return `<td class="link-cell links-cell" data-col="links">${inner}</td>`;
+      }
+
+      /** Brand glyphs for app stores, keyed by platform in apps.json `lastUpdated`. */
+      const PLATFORM_ICON_SVG = Object.freeze({
+        ios:
+          '<svg class="platform-icon platform-icon--ios" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.365 1.43c0 1.14-.42 2.2-1.1 2.98-.83.95-2.19 1.69-3.32 1.6-.13-1.07.42-2.21 1.06-2.93.78-.86 2.16-1.55 3.36-1.65zM20.5 17.2c-.55 1.27-.82 1.84-1.53 2.96-1 1.57-2.4 3.52-4.14 3.53-1.55.02-1.95-1.01-4.05-1-2.1.01-2.54 1.02-4.09 1.01-1.74-.02-3.07-1.78-4.07-3.35C-.05 17.5-.36 12.6 1.31 10.18c1.06-1.55 2.74-2.46 4.32-2.46 1.61 0 2.62 1.06 3.95 1.06 1.29 0 2.07-1.06 3.93-1.06 1.41 0 2.9.77 3.96 2.1-3.48 1.9-2.9 6.87.03 7.38z"/></svg>',
+        android:
+          '<svg class="platform-icon platform-icon--android" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.643.643 0 0 0-.87-.2c-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>',
+      });
+
+      const PLATFORM_LABELS = Object.freeze({ ios: "App Store", android: "Google Play" });
+
+      /** Last Updated column: per-platform store-upload date with the Apple/Android glyph (apps.json `lastUpdated`). */
+      function lastUpdatedCell(app) {
+        const lu = app?.lastUpdated;
+        const order = ["ios", "android"];
+        const lines = [];
+        if (lu && typeof lu === "object") {
+          order.forEach((platform) => {
+            const iso = typeof lu[platform] === "string" ? lu[platform].trim() : "";
+            const disp = formatIsoDateMedium(iso);
+            if (!disp) return;
+            const icon = PLATFORM_ICON_SVG[platform] || "";
+            const label = PLATFORM_LABELS[platform] || platform;
+            lines.push(
+              `<p class="last-updated-line" title="${esc(label + " — " + disp)}">${icon}<span>${esc(disp)}</span></p>`
+            );
+          });
+        }
+        const inner = lines.length
+          ? `<div class="last-updated-stack">${lines.join("")}</div>`
+          : `<span class="dash">—</span>`;
+        return `<td class="last-updated-cell">${inner}</td>`;
+      }
+
+      /** Small pill under app name from apps.json `lifecycle`: new | active | live | revenue (case-insensitive). */
+      function lifecyclePillMarkup(app) {
+        const raw = String(app.lifecycle ?? app.bucket ?? "").trim().toLowerCase();
+        const pills = {
+          new: ["lifecycle-pill--new", "🌱 sprout"],
+          active: ["lifecycle-pill--active", "🌿 growing"],
+          live: ["lifecycle-pill--limb", "🍇 fruitful"],
+          revenue: ["lifecycle-pill--limb", "🍇 fruitful"],
+        };
+        const spec = pills[raw];
+        if (!spec) return "";
+        const [cls, label] = spec;
+        return `<span class="lifecycle-pill ${cls}">${label}</span>`;
+      }
+
+      function lifecycleKey(app) {
+        const raw = String(app.lifecycle ?? app.bucket ?? "").trim().toLowerCase();
+        return ["new", "active", "live", "revenue"].includes(raw) ? raw : "unknown";
+      }
+
+      function normalizeAppsPayload(data) {
+        const raw = data ?? {};
+        const apps = Array.isArray(raw.apps)
+          ? raw.apps
+          : Array.isArray(raw.projects)
+            ? raw.projects
+            : [];
+        return { apps };
+      }
+
+      function renderAppsTable(apps, emptyMessage = "No apps in apps.json.") {
+        const rows = Array.isArray(apps) ? apps : [];
+        if (!rows.length) {
+          const span = visibleTableColSpan();
+          appsBody.innerHTML = `<tr><td colspan="${span}"><span class="dash">${esc(emptyMessage)}</span></td></tr>`;
+          applyColumnVisibility();
+          return;
+        }
+        appsBody.innerHTML = rows
+          .map((app) => {
+            const name = app.appName ?? app.name ?? app.title ?? "";
+            const keyRaw = appKey(app) || String(name);
+            const keyAttr = esc(keyRaw);
+            const rowTodoText = rowTodosByApp[keyRaw] ?? "";
+            const savedHeight = rowTodoHeightsByApp[keyRaw];
+            const rowTodoHeightStyle =
+              typeof savedHeight === "number" && savedHeight > 0
+                ? ` style="height:${savedHeight}px"`
+                : "";
+            const rowTodoPlaceholder =
+              "Start with 1. then Enter → 2. 3. …  (Shift+Enter = plain newline)\nMix with - [ ] tasks anytime.";
+            const rowTodoTitle =
+              "Numbered list: end a line with 1. text then Enter for the next number. Shift+Enter skips numbering. Checklists - [ ] / - [x] still work. Saved to dashboard/pm-dashboard-row-todos.json when node dashboard/server.mjs runs; localStorage mirrors.";
+            const lifePill = lifecyclePillMarkup(app);
+            return `<tr draggable="false" class="app-row" data-app-key="${keyAttr}">
+              <td class="drag-col" title="Drag to reorder" aria-hidden="true">⋮⋮</td>
+              <td class="app"><div class="app-name-stack"><span class="app-name">${esc(name)}</span>${lifePill}</div></td>
+              ${lastUpdatedCell(app)}
+              ${linksCell(app)}
+              <td class="row-todos-cell">
+                <textarea
+                  class="row-todos-textarea"
+                  rows="5"
+                  data-row-todos-key="${keyAttr}"${rowTodoHeightStyle}
+                  placeholder="${esc(rowTodoPlaceholder)}"
+                  title="${esc(rowTodoTitle)}"
+                  spellcheck="true"
+                  aria-label="${esc("Todos scratchpad for " + name)}"
+                >${esc(rowTodoText)}</textarea>
+              </td>
+              ${tldrSummaryCell(app)}
+              ${app?.conversation ? conversationLaneCell(app, "build", "build-cell", "build") : buildCell(app)}
+              ${app?.conversation ? conversationLaneCell(app, "marketing", "marketing-cell", "marketing", "mauMonthly") : marketingCell(app)}
+              ${app?.conversation ? conversationLaneCell(app, "revenue", "revenue-cell", "revenue", "revenueMonthly") : linkCell(app.revenue, "Open", "revenue-cell", true, "revenue")}
+            </tr>`;
+          })
+          .join("");
+        appsBody.querySelectorAll("a").forEach((a) => a.setAttribute("draggable", "false"));
+        applyColumnVisibility();
+        observeRowTodoHeights();
+      }
+
+      function showError(message) {
+        errorBanner.textContent = message;
+        errorBanner.hidden = false;
+      }
+
+      function clearError() {
+        errorBanner.textContent = "";
+        errorBanner.hidden = true;
+      }
+
+      function readSelectedStatusesFromUi() {
+        const activeStatuses = Array.from(
+          statusFilterList.querySelectorAll(".status-filter-btn.is-active")
+        )
+          .flatMap((el) => (el.dataset.status || "").split(/\s+/))
+          .filter(Boolean);
+        selectedStatuses = new Set(activeStatuses);
+      }
+
+      function applyStatusFilterAndRender() {
+        const total = appsOrderedSnapshot.length;
+        const filtered = appsOrderedSnapshot.filter((app) =>
+          selectedStatuses.has(lifecycleKey(app))
+        );
+        if (!total) {
+          filterStatusText.textContent = "";
+          renderAppsTable([]);
+          return;
+        }
+        if (!selectedStatuses.size) {
+          filterStatusText.textContent = "No statuses selected.";
+          renderAppsTable([], "No apps match current filters.");
+          return;
+        }
+        filterStatusText.textContent = `Showing ${filtered.length} of ${total} apps`;
+        renderAppsTable(filtered, "No apps match current filters.");
+      }
+
+      let dragSortHandlersBound = false;
+
+      /** Row currently armed for dragging via the ⋮⋮ handle (mousedown enables `draggable`). */
+      let armedDragRow = null;
+
+      function disarmDragRow() {
+        if (armedDragRow) {
+          armedDragRow.draggable = false;
+          armedDragRow = null;
+        }
+      }
+
+      /** HTML5 drag/drop reorder; persists `appOrderStorageKey`. */
+      function bindDragReorderHandlers() {
+        if (dragSortHandlersBound) return;
+        dragSortHandlersBound = true;
+
+        // Only arm a row for dragging when the press starts on the ⋮⋮ handle,
+        // so click-dragging to highlight text in other cells stays a selection.
+        appsBody.addEventListener("mousedown", (e) => {
+          disarmDragRow();
+          if (!e.target.closest?.("td.drag-col")) return;
+          const tr = e.target.closest?.("tr.app-row");
+          if (!tr || !appsBody.contains(tr)) return;
+          tr.draggable = true;
+          armedDragRow = tr;
+        });
+
+        document.addEventListener("mouseup", () => {
+          // Drag never started (plain click on handle); release the arm.
+          if (armedDragRow && !armedDragRow.classList.contains("drag-active")) {
+            disarmDragRow();
+          }
+        });
+
+        appsBody.addEventListener("dragstart", (e) => {
+          const tr = e.target.closest?.("tr.app-row");
+          if (!tr || !appsBody.contains(tr) || tr !== armedDragRow) {
+            e.preventDefault();
+            return;
+          }
+          const key = tr.dataset.appKey || "";
+          if (!key) {
+            e.preventDefault();
+            return;
+          }
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", key);
+          tr.classList.add("drag-active");
+        });
+
+        appsBody.addEventListener("dragend", () => {
+          appsBody
+            .querySelectorAll("tr.app-row.drag-active, tr.app-row.drag-over")
+            .forEach((r) =>
+              r.classList.remove("drag-active", "drag-over")
+            );
+          disarmDragRow();
+        });
+
+        appsBody.addEventListener("dragover", (e) => {
+          const tr = e.target.closest?.("tr.app-row");
+          e.preventDefault();
+          if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+          appsBody
+            .querySelectorAll("tr.app-row.drag-over")
+            .forEach((r) => r.classList.remove("drag-over"));
+          if (tr && appsBody.contains(tr)) tr.classList.add("drag-over");
+        });
+
+        appsBody.addEventListener("drop", (e) => {
+          const tr = e.target.closest?.("tr.app-row");
+          e.preventDefault();
+          appsBody
+            .querySelectorAll("tr.app-row.drag-over, tr.app-row.drag-active")
+            .forEach((r) => r.classList.remove("drag-over", "drag-active"));
+          const fromKey = e.dataTransfer.getData("text/plain");
+          const beforeKey = tr?.dataset?.appKey;
+          if (
+            !fromKey ||
+            !beforeKey ||
+            fromKey === beforeKey ||
+            !appsOrderedSnapshot.length
+          ) {
+            return;
+          }
+          const keys = appsOrderedSnapshot.map(appKey).filter(Boolean);
+          if (!keys.includes(fromKey)) return;
+          const nextKeys = insertKeyBefore(keys, fromKey, beforeKey);
+          writeStoredOrder(nextKeys);
+          appsOrderedSnapshot = applyKeysOrderExactly(appsOrderedSnapshot, nextKeys);
+          applyStatusFilterAndRender();
+          refreshStatus.textContent =
+            "App order saved locally (survives refresh).";
+        });
+      }
+
+      /**
+       * If the caret sits at the end of a `N. ` line, insert the next number on a
+       * new line. Mutates the textarea value/caret in place. Returns true if handled.
+       */
+      function continueNumberedList(ta) {
+        const start = ta.selectionStart;
+        const end = ta.selectionEnd;
+        if (start !== end) return false;
+        const text = ta.value;
+        const lineStart = text.lastIndexOf("\n", start - 1) + 1;
+        const nextNl = text.indexOf("\n", start);
+        const lineEndPos = nextNl === -1 ? text.length : nextNl;
+        if (start !== lineEndPos) return false;
+        const fullLine = text.slice(lineStart, lineEndPos);
+        const m = fullLine.match(/^(\s*)(\d+)\.\s*(.*)$/);
+        if (!m) return false;
+        const indent = m[1];
+        const n = parseInt(m[2], 10);
+        if (!Number.isFinite(n)) return false;
+        const insert = `\n${indent}${n + 1}. `;
+        ta.value = text.slice(0, start) + insert + text.slice(start);
+        const caret = start + insert.length;
+        ta.selectionStart = ta.selectionEnd = caret;
+        return true;
+      }
+
+      let rowTodosScratchSaveTimer = null;
+      let rowTodosScratchHandlersBound = false;
+
+      function readStoredAppRowTodos() {
+        try {
+          const raw = localStorage.getItem(pmDashboardRowTodosStorageKey);
+          if (!raw) return {};
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object") return {};
+          /** @type {Record<string, string>} */
+          const out = {};
+          for (const [k, v] of Object.entries(parsed)) {
+            if (typeof k === "string" && typeof v === "string") out[k] = v;
+          }
+          return out;
+        } catch {
+          return {};
+        }
+      }
+
+      function writeStoredAppRowTodos(obj) {
+        try {
+          localStorage.setItem(pmDashboardRowTodosStorageKey, JSON.stringify(obj));
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      function readStoredRowTodoHeights() {
+        try {
+          const raw = localStorage.getItem(pmDashboardRowTodoHeightsStorageKey);
+          if (!raw) return {};
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object") return {};
+          /** @type {Record<string, number>} */
+          const out = {};
+          for (const [k, v] of Object.entries(parsed)) {
+            if (typeof k === "string" && typeof v === "number" && v > 0) out[k] = v;
+          }
+          return out;
+        } catch {
+          return {};
+        }
+      }
+
+      function writeStoredRowTodoHeights(obj) {
+        try {
+          localStorage.setItem(
+            pmDashboardRowTodoHeightsStorageKey,
+            JSON.stringify(obj)
+          );
+        } catch {
+          /* storage may be unavailable; height is a non-critical preference */
+        }
+      }
+
+      /** Tracks the last-seen height per textarea so the initial measure isn't saved as a user resize. */
+      const rowTodoHeightBaseline = new WeakMap();
+      let rowTodoHeightSaveTimer = null;
+      const rowTodoHeightObserver =
+        typeof ResizeObserver === "function"
+          ? new ResizeObserver((entries) => {
+              let changed = false;
+              for (const entry of entries) {
+                const ta = entry.target;
+                const key = ta.dataset.rowTodosKey;
+                if (!key) continue;
+                const h = Math.round(ta.getBoundingClientRect().height);
+                if (!h) continue;
+                if (!rowTodoHeightBaseline.has(ta)) {
+                  rowTodoHeightBaseline.set(ta, h);
+                  continue;
+                }
+                if (Math.abs(h - rowTodoHeightBaseline.get(ta)) < 1) continue;
+                rowTodoHeightBaseline.set(ta, h);
+                rowTodoHeightsByApp[key] = h;
+                changed = true;
+              }
+              if (changed) {
+                clearTimeout(rowTodoHeightSaveTimer);
+                rowTodoHeightSaveTimer = setTimeout(
+                  () => writeStoredRowTodoHeights(rowTodoHeightsByApp),
+                  250
+                );
+              }
+            })
+          : null;
+
+      /** Re-attach the resize observer to the current set of Todos textareas after a render. */
+      function observeRowTodoHeights() {
+        if (!rowTodoHeightObserver) return;
+        rowTodoHeightObserver.disconnect();
+        appsBody
+          .querySelectorAll("textarea.row-todos-textarea")
+          .forEach((ta) => rowTodoHeightObserver.observe(ta));
+      }
+
+      /** @returns {Promise<void>} */
+      async function persistAppRowTodosToServer(obj) {
+        if (!window.location.protocol.startsWith("http")) {
+          writeStoredAppRowTodos(obj);
+          return;
+        }
+        try {
+          const res = await fetch("/api/dashboard-row-todos", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            body: JSON.stringify({ rows: obj }),
+          });
+          writeStoredAppRowTodos(obj);
+          if (!res.ok) {
+            /* kept browser copy above */
+          }
+        } catch {
+          writeStoredAppRowTodos(obj);
+        }
+      }
+
+      async function hydrateAppRowTodos() {
+        const isHttp = window.location.protocol.startsWith("http");
+        if (!isHttp) {
+          rowTodosByApp = readStoredAppRowTodos();
+          return;
+        }
+        try {
+          const res = await fetch("/api/dashboard-row-todos", { cache: "no-store" });
+          if (!res.ok) throw new Error(String(res.status));
+          const data = await res.json();
+          /** @type {Record<string, string>} */
+          let serverRows = {};
+          if (data && typeof data.rows === "object" && data.rows !== null) {
+            for (const [k, v] of Object.entries(data.rows)) {
+              if (typeof k === "string" && typeof v === "string") serverRows[k] = v;
+            }
+          }
+          const local = readStoredAppRowTodos();
+          const serverEmpty = Object.keys(serverRows).length === 0;
+          rowTodosByApp = { ...local, ...serverRows };
+          if (serverEmpty && Object.keys(local).length > 0) {
+            await persistAppRowTodosToServer(rowTodosByApp);
+          }
+          writeStoredAppRowTodos(rowTodosByApp);
+        } catch {
+          rowTodosByApp = readStoredAppRowTodos();
+        }
+      }
+
+      async function hydrateConversationFiles() {
+        if (!window.location.protocol.startsWith("http")) {
+          conversationFilesLoaded = false;
+          return;
+        }
+        try {
+          const res = await fetch("/api/conversation-files", { cache: "no-store" });
+          if (!res.ok) throw new Error(String(res.status));
+          const data = await res.json();
+          conversationFilesByLimb =
+            data && typeof data.limbs === "object" && data.limbs !== null
+              ? data.limbs
+              : {};
+          conversationFilesLoaded = true;
+        } catch {
+          conversationFilesByLimb = {};
+          conversationFilesLoaded = false;
+        }
+      }
+
+      function bindAppRowTodosSave() {
+        if (rowTodosScratchHandlersBound) return;
+        rowTodosScratchHandlersBound = true;
+
+        function scheduleRowTodosPersist(ta) {
+          const k = ta.dataset.rowTodosKey;
+          if (!k) return;
+          rowTodosByApp[k] = ta.value;
+          clearTimeout(rowTodosScratchSaveTimer);
+          rowTodosScratchSaveTimer = setTimeout(() => {
+            void persistAppRowTodosToServer(rowTodosByApp);
+          }, 250);
+        }
+
+        appsBody.addEventListener("keydown", (e) => {
+          if (e.key !== "Enter" || e.shiftKey) return;
+          const ta = e.target.closest?.("textarea.row-todos-textarea");
+          if (!ta || !appsBody.contains(ta)) return;
+          if (!continueNumberedList(ta)) return;
+          e.preventDefault();
+          scheduleRowTodosPersist(ta);
+        });
+
+        appsBody.addEventListener("input", (e) => {
+          const ta = e.target.closest?.("textarea.row-todos-textarea");
+          if (!ta || !appsBody.contains(ta)) return;
+          scheduleRowTodosPersist(ta);
+        });
+      }
+
+      let notesSaveHintTimer = null;
+      let notesInputBound = false;
+
+      function readStoredNotes() {
+        try {
+          return localStorage.getItem(pmDashboardNotesStorageKey) ?? "";
+        } catch {
+          return "";
+        }
+      }
+
+      function writeStoredNotes(text) {
+        try {
+          localStorage.setItem(pmDashboardNotesStorageKey, text);
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      /** @returns {"disk"|"browser"|false} */
+      async function persistNotesToServer(text) {
+        if (!window.location.protocol.startsWith("http")) {
+          return writeStoredNotes(text) ? "browser" : false;
+        }
+        try {
+          const res = await fetch("/api/dashboard-notes", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            body: JSON.stringify({ text }),
+          });
+          writeStoredNotes(text);
+          return res.ok ? "disk" : "browser";
+        } catch {
+          writeStoredNotes(text);
+          return "browser";
+        }
+      }
+
+      /** Apply any saved height to the Notes textarea and persist future resizes (localStorage only). */
+      function bindNotesHeightPersistence() {
+        if (!pmDashboardNotesEl) return;
+        try {
+          const raw = localStorage.getItem(pmDashboardNotesHeightStorageKey);
+          const saved = raw ? Number(raw) : 0;
+          if (Number.isFinite(saved) && saved > 0) {
+            pmDashboardNotesEl.style.height = `${saved}px`;
+          }
+        } catch {
+          /* ignore */
+        }
+        if (typeof ResizeObserver !== "function") return;
+        let baseline = null;
+        let saveTimer = null;
+        const ro = new ResizeObserver(() => {
+          const h = Math.round(pmDashboardNotesEl.getBoundingClientRect().height);
+          if (!h) return;
+          if (baseline === null) {
+            baseline = h;
+            return;
+          }
+          if (Math.abs(h - baseline) < 1) return;
+          baseline = h;
+          clearTimeout(saveTimer);
+          saveTimer = setTimeout(() => {
+            try {
+              localStorage.setItem(pmDashboardNotesHeightStorageKey, String(h));
+            } catch {
+              /* height is a non-critical preference */
+            }
+          }, 250);
+        });
+        ro.observe(pmDashboardNotesEl);
+      }
+
+      function bindPmDashboardNotesSave() {
+        if (!pmDashboardNotesEl || notesInputBound) return;
+        notesInputBound = true;
+        bindNotesHeightPersistence();
+        let debounceTimer = null;
+        pmDashboardNotesEl.addEventListener("input", () => {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(async () => {
+            const text = pmDashboardNotesEl.value;
+            const where = await persistNotesToServer(text);
+            if (notesSaveHintEl) {
+              let msg = "";
+              if (where === "disk") msg = "Saved to disk";
+              else if (where === "browser") msg = "Saved in browser only";
+              else msg = "Could not save";
+              notesSaveHintEl.textContent = msg;
+              clearTimeout(notesSaveHintTimer);
+              notesSaveHintTimer = setTimeout(() => {
+                notesSaveHintEl.textContent = "";
+              }, 1600);
+            }
+          }, 250);
+        });
+      }
+
+      async function hydratePmDashboardNotes() {
+        if (!pmDashboardNotesEl) return;
+        const isHttp = window.location.protocol.startsWith("http");
+        if (!isHttp) {
+          pmDashboardNotesEl.value = readStoredNotes();
+          bindPmDashboardNotesSave();
+          return;
+        }
+        try {
+          const res = await fetch("/api/dashboard-notes", { cache: "no-store" });
+          if (!res.ok) throw new Error(String(res.status));
+          const data = await res.json();
+          let serverText = typeof data.text === "string" ? data.text : "";
+          const local = readStoredNotes();
+          if (serverText === "" && local !== "") {
+            await persistNotesToServer(local);
+            serverText = local;
+          }
+          pmDashboardNotesEl.value = serverText;
+          writeStoredNotes(serverText);
+        } catch {
+          pmDashboardNotesEl.value = readStoredNotes();
+        }
+        bindPmDashboardNotesSave();
+      }
+
+      async function loadDashboard() {
+        clearError();
+        const isServed = window.location.protocol.startsWith("http");
+        if (!isServed) {
+          showError(
+            "Open this page via the dashboard server (node dashboard/server.mjs from the trunk repo root) so /apps.json can load. file:// will not work."
+          );
+          appsBody.innerHTML = `<tr><td colspan="${visibleTableColSpan()}"><span class="dash">—</span></td></tr>`;
+          applyColumnVisibility();
+          return;
+        }
+
+        refreshStatus.textContent = "Loading…";
+        try {
+          const [res] = await Promise.all([
+            fetch("/apps.json", { cache: "no-store" }),
+            hydrateAppRowTodos(),
+            hydrateConversationFiles(),
+          ]);
+          if (!res.ok) throw new Error(`HTTP ${res.status} loading apps.json`);
+          let data;
+          try {
+            data = await res.json();
+          } catch {
+            throw new Error("apps.json is not valid JSON.");
+          }
+          const normalized = normalizeAppsPayload(data);
+          const fromJson = normalized.apps.slice();
+          const canonKeys = fromJson.map(appKey).filter(Boolean);
+          const mergedKeys = mergeCanonicalOrder(canonKeys, readStoredOrder());
+          appsOrderedSnapshot = applyKeysOrderExactly(fromJson, mergedKeys);
+          applyStatusFilterAndRender();
+          refreshStatus.textContent =
+            localStorage.getItem(appOrderStorageKey) != null
+              ? "Loaded from apps.json (custom app order)."
+              : "Loaded from apps.json.";
+        } catch (err) {
+          const msg =
+            err instanceof Error ? err.message : "Failed to load apps.json.";
+          showError(msg);
+          appsBody.innerHTML = `<tr><td colspan="${visibleTableColSpan()}"><span class="dash">Could not load data.</span></td></tr>`;
+          applyColumnVisibility();
+          refreshStatus.textContent = "";
+        }
+      }
+
+      bindDragReorderHandlers();
+      bindColumnResizeHandlers();
+      bindAppRowTodosSave();
+      rowTodoHeightsByApp = readStoredRowTodoHeights();
+
+      columnWidths = readColumnWidths();
+      applyColumnWidthsToCols();
+
+      columnVisibility = readColumnVisibility();
+      syncCheckboxesFromColumnVisibility();
+      applyColumnVisibility();
+
+      columnChecklistEl?.addEventListener("change", (e) => {
+        const inp = e.target.closest?.("[data-col-toggle]");
+        if (!inp || !(inp instanceof HTMLInputElement)) return;
+        const k = inp.dataset.colToggle || "";
+        if (!optionalColumnKeys.includes(k)) return;
+        columnVisibility[k] = inp.checked;
+        writeColumnVisibility();
+        applyColumnVisibility();
+      });
+
+      statusFilterList.addEventListener("click", (e) => {
+        const btn = e.target.closest?.(".status-filter-btn");
+        if (!btn || !statusFilterList.contains(btn)) return;
+        const buttons = Array.from(
+          statusFilterList.querySelectorAll(".status-filter-btn")
+        );
+        const activeButtons = buttons.filter((b) =>
+          b.classList.contains("is-active")
+        );
+        const allWereActive = activeButtons.length === buttons.length;
+
+        if (allWereActive) {
+          buttons.forEach((b) => {
+            const shouldBeActive = b === btn;
+            b.classList.toggle("is-active", shouldBeActive);
+            b.setAttribute("aria-pressed", shouldBeActive ? "true" : "false");
+          });
+        } else {
+          btn.classList.toggle("is-active");
+          btn.setAttribute(
+            "aria-pressed",
+            btn.classList.contains("is-active") ? "true" : "false"
+          );
+          const nowActiveButtons = buttons.filter((b) =>
+            b.classList.contains("is-active")
+          );
+          if (!nowActiveButtons.length) {
+            buttons.forEach((b) => {
+              b.classList.add("is-active");
+              b.setAttribute("aria-pressed", "true");
+            });
+          }
+        }
+        readSelectedStatusesFromUi();
+        applyStatusFilterAndRender();
+      });
+      themeSelect.addEventListener("change", () => {
+        const selected = themeSelect.value;
+        if (window.PmDashboardTheme) {
+          window.PmDashboardTheme.apply(selected);
+          try {
+            localStorage.setItem(window.PmDashboardTheme.STORAGE_KEY, selected);
+          } catch {
+            /* ignore */
+          }
+          window.PmDashboardTheme.broadcastThemeChange(selected);
+        }
+      });
+
+      const savedTheme = window.PmDashboardTheme
+        ? window.PmDashboardTheme.readStoredThemeId()
+        : "slides";
+      if (window.PmDashboardTheme?.themes[savedTheme]) {
+        themeSelect.value = savedTheme;
+      }
+      window.PmDashboardTheme?.apply(themeSelect.value);
+      readSelectedStatusesFromUi();
+      void hydratePmDashboardNotes();
+      loadDashboard();
+    </script>
+  </body>
+</html>
