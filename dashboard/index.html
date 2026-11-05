@@ -1447,15 +1447,18 @@
       }
 
       /**
-       * Lane link list. Source of truth is the live folder listing when the
-       * conversation-files endpoint loaded; otherwise falls back to apps.json `conversation`.
+       * Lane link list. A limb with a live folder listing uses that listing.
+       * Apps with no limb folder (in-repo examples) use apps.json `conversation`.
        * @returns {string[]} anchor markup, one per file
        */
       function laneLinkMarkup(app, lane) {
         const limbKey = typeof app?.limbPath === "string" ? app.limbPath : "";
-        if (conversationFilesLoaded) {
-          const files =
-            (limbKey && conversationFilesByLimb[limbKey]?.[lane]) || [];
+        const liveLanes =
+          conversationFilesLoaded && limbKey
+            ? conversationFilesByLimb[limbKey]
+            : null;
+        if (liveLanes) {
+          const files = liveLanes[lane] || [];
           return files
             .map((f) => {
               const url = toUrlPath(f.path);

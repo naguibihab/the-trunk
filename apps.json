@@ -42,6 +42,133 @@
         "mauMonthly": [],
         "revenueMonthly": []
       }
+    },
+    {
+      "appName": "Trail Log",
+      "lifecycle": "active",
+      "description": "examples/trail-log/the-conversation/brief.md",
+      "tldr": "**🟡 Watch**\n\n**Health**\n- Build: watch — Sign in with Apple fails on the second attempt, and a background route save can disappear\n- Marketing: early — no store listing yet; title and subtitle are drafts\n- Revenue: none — free on TestFlight, paywall not built\n\n**Top to-dos**\n1. Fix Sign in with Apple on the second attempt\n2. Draft the App Store listing before requesting review\n\n**Next:** Fix Sign in with Apple — it blocks the TestFlight cohort from finishing onboarding.\n\n<small>Generated 2026-11-06</small>\n\n*Sample app. Figures are invented.*",
+      "links": [
+        {
+          "label": "Brief",
+          "url": "examples/trail-log/the-conversation/brief.md"
+        }
+      ],
+      "potentialFeatures": [],
+      "conversation": {
+        "build": [
+          {
+            "label": "Status",
+            "path": "examples/trail-log/the-conversation/build/status.md"
+          },
+          {
+            "label": "Open Issues",
+            "path": "examples/trail-log/the-conversation/build/openIssues.md"
+          },
+          {
+            "label": "Sentry Health",
+            "path": "examples/trail-log/the-conversation/build/sentryHealth.md"
+          }
+        ],
+        "marketing": [
+          {
+            "label": "ASO Health",
+            "path": "examples/trail-log/the-conversation/marketing/asoHealth.md"
+          },
+          {
+            "label": "User Acquisition",
+            "path": "examples/trail-log/the-conversation/marketing/userAcquisition.md"
+          }
+        ],
+        "revenue": [
+          {
+            "label": "Revenue Health",
+            "path": "examples/trail-log/the-conversation/revenue/revenueHealth.md"
+          }
+        ]
+      },
+      "metrics": {
+        "mauMonthly": [
+          { "month": "2026-06", "value": 12 },
+          { "month": "2026-07", "value": 18 },
+          { "month": "2026-08", "value": 22 },
+          { "month": "2026-09", "value": 31 },
+          { "month": "2026-10", "value": 40 },
+          { "month": "2026-11", "value": 48 }
+        ],
+        "revenueMonthly": []
+      }
+    },
+    {
+      "appName": "Soup Club",
+      "lifecycle": "live",
+      "description": "examples/soup-club/the-conversation/brief.md",
+      "tldr": "**🟢 Healthy**\n\n**Health**\n- Build: healthy — one iPad layout bug; Sentry quiet since 2.4.1\n- Marketing: healthy — sample ASO 78; keyword field still repeats \"recipe\"\n- Revenue: healthy — sample MRR $1,240, 186 active subscriptions\n\n**Top to-dos**\n1. Fix the iPad recipe card clip\n2. Drop the repeated keyword\n\n**Next:** Ship the iPad layout fix — it is the only open issue on the live version.\n\n<small>Generated 2026-11-06</small>\n\n*Sample app. Figures are invented.*",
+      "lastUpdated": {
+        "ios": "2026-10-12",
+        "android": "2026-09-28"
+      },
+      "links": [
+        {
+          "label": "Brief",
+          "url": "examples/soup-club/the-conversation/brief.md"
+        }
+      ],
+      "potentialFeatures": [],
+      "conversation": {
+        "build": [
+          {
+            "label": "Status",
+            "path": "examples/soup-club/the-conversation/build/status.md"
+          },
+          {
+            "label": "Open Issues",
+            "path": "examples/soup-club/the-conversation/build/openIssues.md"
+          },
+          {
+            "label": "Sentry Health",
+            "path": "examples/soup-club/the-conversation/build/sentryHealth.md"
+          }
+        ],
+        "marketing": [
+          {
+            "label": "ASO Health",
+            "path": "examples/soup-club/the-conversation/marketing/asoHealth.md"
+          },
+          {
+            "label": "User Acquisition",
+            "path": "examples/soup-club/the-conversation/marketing/userAcquisition.md"
+          },
+          {
+            "label": "User Retention",
+            "path": "examples/soup-club/the-conversation/marketing/userRetention.md"
+          }
+        ],
+        "revenue": [
+          {
+            "label": "Revenue Health",
+            "path": "examples/soup-club/the-conversation/revenue/revenueHealth.md"
+          }
+        ]
+      },
+      "metrics": {
+        "mauMonthly": [
+          { "month": "2026-06", "value": 820 },
+          { "month": "2026-07", "value": 910 },
+          { "month": "2026-08", "value": 980 },
+          { "month": "2026-09", "value": 1100 },
+          { "month": "2026-10", "value": 1240 },
+          { "month": "2026-11", "value": 1360 }
+        ],
+        "revenueMonthly": [
+          { "month": "2026-06", "value": 640 },
+          { "month": "2026-07", "value": 780 },
+          { "month": "2026-08", "value": 890 },
+          { "month": "2026-09", "value": 1020 },
+          { "month": "2026-10", "value": 1140 },
+          { "month": "2026-11", "value": 1240 }
+        ]
+      }
     }
   ]
 }

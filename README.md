@@ -1,67 +1,61 @@
 # The Trunk
 
-PM **index** and shared skills for The Tree. Ideas live in sibling repo **`the-sprouts`**, apps in sibling **`limb-*`** repos, sites in **`the-saplings`**. This trunk does not contain project source.
+![The Tree dashboard](docs/pm-dashboard.jpg)
 
-## Repo layout
+## What it is
+
+The PM index and shared skills for The Tree. This repo is the trunk: `apps.json`, the dashboard, and `.cursor/skills/`. App source does not live here.
+
+Ideas sit in the sibling repo `the-sprouts`. Shipping apps sit in sibling `limb-*` repos. Sites sit in `the-saplings`.
+
+Each app is one row: sprout, growing, or fruitful. The TLDR is the focus. Build, marketing, and revenue are the notes for that row.
+
+```bash
+node dashboard/server.mjs
+```
+
+Open http://localhost:4173. The picture above is that board with the sample rows. Trail Log and Soup Club use invented figures.
+
+## Who's it for
+
+Someone with more than one app, who wants one board for what each one needs next, and agent skills that already know this garden.
+
+Take the skills into your own trunk. Leave your apps, sprout briefs, live metrics, and scratch notes (`dashboard/pm-dashboard-row-todos.json`) out of a public copy. See [contribute.md](contribute.md).
+
+## Skills structure
+
+Each skill is a folder with a `SKILL.md` under `.cursor/skills/`.
 
 ```text
-the-garden/
-  the-trunk/             ← this repo: apps.json, dashboard, .cursor/skills/
-  the-sprouts/           ← all pre-limb ideas
-  limb-people-keeper/    ← one git repo per limb (code + the-conversation/)
-  the-saplings/          ← static sites (Netlify)
+.cursor/skills
+├── trunk-skills                         
+│   ├── gardener-ranking                
+│   └── conversation-tldr-sync          
+├── sprout-skills                        
+│   ├── new-sprout
+│   ├── sprout-prototype
+│   ├── find-competition
+│   ├── sprout-competition-analysis
+│   ├── sprout-to-limb
+│   └── cut-limb-or-sprout
+├── build-skills                         
+│   ├── code-to-user-stories
+│   ├── upload-to-testflight
+│   ├── sentry-healthcheck
+│   └── guide-otp
+├── marketing-skills                     
+│   ├── marketing-interactive-workflow  
+│   ├── calculate-market-size
+│   ├── track-retention-and-acquisition-revenuecat
+│   ├── aso-workflow                    
+│   ├── reddit-workflow                 
+│   ├── facebook-workflow               
+│   ├── tiktok-workflow                 
+│   ├── outreach-workflow               
+│   └── product-hunt-workflow           
+└── revenue-skills                      
+    ├── revenue-health-revenuecat
+    └── conversion-rate-revenuecat
 ```
 
-| Layer | Role |
-|------|------|
-| **Trunk** | **`apps.json`** indexes paths; **`tldr`** and **`metrics`** are derived fields—not duplicate PM docs. |
-| **Sprouts** | Sibling **`../the-sprouts/<slug>/`** — brief (+ optional requirements) for ideas **without** a limb yet. |
-| **Limbs** | Sibling **`../limb-*/`** — shipping code; **`the-conversation/`** is canonical PM (Build / Marketing / Revenue). |
-| **Leaf** | On a limb (e.g. **`.cursor/leaves/`**): local agent context—not copied to trunk. |
-
-Netlify brochure sites (e.g. upilio.io) stay in **separate repos** and are **not** indexed here.
-
----
-
-## **`apps.json`**
-
-| Field | Role |
-|-------|------|
-| **`description`** | Pre-limb: **`../the-sprouts/<slug>/brief.md`**. Limb: **`../limb-…/the-conversation/brief.md`**. |
-| **`limbPath`** | Limb root when promoted (e.g. **`../limb-people-keeper`**). |
-| **`tldr`** | Dashboard focus summary, Markdown (workflow-generated). |
-| **`conversation`** | **`build`**, **`marketing`**, **`revenue`** link lists → Markdown under **`the-conversation/`**. |
-| **`metrics`** | Optional **`mauMonthly`** / **`revenueMonthly`** for dashboard sparklines. |
-
----
-
-## **`../the-sprouts/<slug>/`**
-
-Pre-limb only. See that repo’s README.
-
----
-
-## **`../limb-*/the-conversation/`**
-
-Scaffold:
-
-```bash
-node .cursor/skills/sprout-skills/sprout-to-limb/scaffold-the-conversation.mjs ../limb-people-keeper
-```
-
-| Path | Role |
-|------|------|
-| **brief.md** | Product brief (promoted from sprout or written at limb birth). |
-| **build/** | openIssues, knownIssues, status, userStories, sentryHealth |
-| **marketing/** | asoHealth, asoIssues, userAcquisition, userRetention |
-| **revenue/** | revenueHealth |
-
----
-
-## Scripts
-
-```bash
-node .cursor/skills/sprout-skills/sprout-to-limb/scaffold-the-conversation.mjs ../limb-people-keeper
-node dashboard/server.mjs   # http://localhost:4173
-```
-
+Build skills are the set you copy into a limb when that app needs them. A limb keeps its own skills in that repo.

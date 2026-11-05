@@ -345,7 +345,7 @@ const server = http.createServer(async (req, res) => {
     pathname === "/apps.json" ? "apps.json" : pathname.replace(/^\/+/, "");
 
   const trunkFile =
-    pathname === "/apps.json"
+    pathname === "/apps.json" || pathname.startsWith("/examples/")
       ? safeTrunkFile(repoRel)
       : pathname.startsWith("/.cursor/")
         ? safeTrunkFile(repoRel)
